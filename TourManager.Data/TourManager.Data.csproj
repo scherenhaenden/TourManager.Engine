@@ -5,6 +5,11 @@
         <PackageVersion>0.1.0</PackageVersion>
         <Title>TourManager.Data</Title>
         <AssemblyVersion>0.1.0</AssemblyVersion>
+        <Copyright>Eddie Krill</Copyright>
+        <PackageProjectUrl>https://github.com/scherenhaenden/TourManager.Engine</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/scherenhaenden/TourManager.Engine</RepositoryUrl>
+        <RepositoryType>Git</RepositoryType>
+        <PackageTags>Tour TourManager Bands</PackageTags>
     </PropertyGroup>
 
     <ItemGroup>
@@ -13,6 +18,10 @@
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
       <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.9" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Migrations" />
     </ItemGroup>
 
 </Project>

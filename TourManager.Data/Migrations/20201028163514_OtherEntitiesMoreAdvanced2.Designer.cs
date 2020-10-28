@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TourManager.Data.Core.Configuration;
 
 namespace TourManager.Data.Migrations
 {
     [DbContext(typeof(TourManagerContext))]
-    partial class TourManagerContextModelSnapshot : ModelSnapshot
+    [Migration("20201028163514_OtherEntitiesMoreAdvanced2")]
+    partial class OtherEntitiesMoreAdvanced2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

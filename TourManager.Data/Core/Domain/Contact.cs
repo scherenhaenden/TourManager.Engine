@@ -1,7 +1,14 @@
+using System.Collections.Generic;
+
 namespace TourManager.Data.Core.Domain
 {
-    public class Contacts: TEntity
+    public class Contact: TEntity
     {
+        public Contact()
+        {
+            this.Address = new HashSet<Address>();
+        }
+        
         public string FirstName { get; set; }
         
         public string LastName { get; set; }
@@ -9,7 +16,6 @@ namespace TourManager.Data.Core.Domain
         public string TelefonNumber { get; set; }
         
         public string Email { get; set; }
-        
-        public string Address { get; set; }
+        public virtual ICollection<Address> Address { get; set; }
     }
 }

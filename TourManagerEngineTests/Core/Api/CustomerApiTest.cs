@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Proxies;
 using NUnit.Framework;
 using TourManager.Data.Core.Configuration;
 using TourManagerLogic.ApiModels;
@@ -16,7 +17,12 @@ namespace TourManagerEngineTests.Core.Api
         [Test]
         public void Test1()
         {
+            
+            
+            
             DbContextOptionsBuilder<TourManagerContext> options = new DbContextOptionsBuilder<TourManagerContext>();
+            options.UseLazyLoadingProxies();
+            
             DbContextOptions options2 = new DbContextOptions<TourManagerContext>();
             options.UseSqlite($"Data Source=./TourManager.db");
             TourManagerContext tourManagerContext = new TourManagerContext(options.Options);
