@@ -18,14 +18,14 @@ namespace TourManagerLogic.Core.Api
         public CustomersApi(TourManagerContext tourManagerContext)
         {
             _tourManagerContext = tourManagerContext;
-            _contaqtToDto = new MapperConfiguration(cfg => cfg.CreateMap<Contacts, ContactsModel>().IgnoreAllPropertiesWithAnInaccessibleSetter());
-            _DTOToContact = new MapperConfiguration(cfg => cfg.CreateMap<ContactsModel, Contacts>().IgnoreAllPropertiesWithAnInaccessibleSetter());
+            _contaqtToDto = new MapperConfiguration(cfg => cfg.CreateMap<Contact, ContactsModel>().IgnoreAllPropertiesWithAnInaccessibleSetter());
+            _DTOToContact = new MapperConfiguration(cfg => cfg.CreateMap<ContactsModel, Contact>().IgnoreAllPropertiesWithAnInaccessibleSetter());
             _DTOMToContactMapper = _DTOToContact.CreateMapper();
             _ContactToDTOMapper = _contaqtToDto.CreateMapper();
         }
         public void Add(ContactsModel values)
         {
-            var contacts =_DTOMToContactMapper.Map<Contacts>(values);
+            var contacts =_DTOMToContactMapper.Map<Contact>(values);
             
             _tourManagerContext.Contacts.Add(contacts);
             _tourManagerContext.SaveChanges();
@@ -33,7 +33,7 @@ namespace TourManagerLogic.Core.Api
         
         public void Update(ContactsModel values)
         {
-            var contacts =_DTOMToContactMapper.Map<Contacts>(values);
+            var contacts =_DTOMToContactMapper.Map<Contact>(values);
             _tourManagerContext.Contacts.Update(contacts);
             _tourManagerContext.SaveChanges();
         }
