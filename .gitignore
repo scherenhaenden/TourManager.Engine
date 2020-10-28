@@ -1,0 +1,4 @@
+*/bin/
+*/obj/
+.idea/
+MigrationHelper/TourManager.db
