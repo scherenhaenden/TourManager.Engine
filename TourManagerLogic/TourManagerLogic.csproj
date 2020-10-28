@@ -2,6 +2,14 @@
 
     <PropertyGroup>
         <TargetFramework>netcoreapp3.1</TargetFramework>
+        <PackageVersion>0.1.0</PackageVersion>
+        <Description>Tour Manager Logic</Description>
+        <Copyright>Eddie Krill</Copyright>
+        <PackageProjectUrl>https://github.com/scherenhaenden/TourManager.Engine</PackageProjectUrl>
+        <PackageLicenseUrl>https://github.com/scherenhaenden/TourManager.Engine</PackageLicenseUrl>
+        <RepositoryUrl>https://github.com/scherenhaenden/TourManager.Engine</RepositoryUrl>
+        <RepositoryType>Git</RepositoryType>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     </PropertyGroup>
 
     <ItemGroup>
