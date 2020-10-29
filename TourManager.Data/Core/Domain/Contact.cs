@@ -6,16 +6,17 @@ namespace TourManager.Data.Core.Domain
     {
         public Contact()
         {
-            this.Address = new HashSet<Address>();
+            Addresses = new HashSet<Address>();
+            TelefonNumbers = new HashSet<TelefonNumbers>();
+            Emails = new HashSet<Emails>();
+            
         }
         
         public string FirstName { get; set; }
         
         public string LastName { get; set; }
-        
-        public string TelefonNumber { get; set; }
-        
-        public string Email { get; set; }
-        public virtual ICollection<Address> Address { get; set; }
+        public virtual ICollection<TelefonNumbers> TelefonNumbers { get; set; }
+        public virtual ICollection<Emails> Emails { get; set; }
+        public virtual ICollection<Address> Addresses { get; set; }
     }
 }

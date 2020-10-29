@@ -1,6 +1,6 @@
-namespace TourManager.Data.Core.Domain
+namespace TourManagerLogic.ApiModels
 {
-    public class Address: TEntity
+    public class AddressModel
     {
         public string Country { get; set; }
         public string City { get; set; }

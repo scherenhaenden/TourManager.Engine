@@ -1,58 +1,88 @@
-using System.Linq;
+using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
 using AutoMapper;
-using TourManager.Data.Core.Configuration;
 using TourManager.Data.Core.Domain;
+using TourManager.Data.Persistence;
 using TourManagerLogic.ApiModels;
 
 namespace TourManagerLogic.Core.Api
 {
     public class CustomersApi
     {
-        private readonly TourManagerContext _tourManagerContext;
-        private readonly MapperConfiguration _contaqtToDto;
-        private readonly MapperConfiguration _DTOToContact;
-        
+        private readonly IUnityOfWork _unityOfWork;
         private readonly IMapper _DTOMToContactMapper;
         private readonly IMapper _ContactToDTOMapper;
 
-        public CustomersApi(TourManagerContext tourManagerContext)
+        public CustomersApi(IUnityOfWork unityOfWork)
         {
-            _tourManagerContext = tourManagerContext;
-            _contaqtToDto = new MapperConfiguration(cfg => cfg.CreateMap<Contact, ContactsModel>().IgnoreAllPropertiesWithAnInaccessibleSetter());
-            _DTOToContact = new MapperConfiguration(cfg => cfg.CreateMap<ContactsModel, Contact>().IgnoreAllPropertiesWithAnInaccessibleSetter());
-            _DTOMToContactMapper = _DTOToContact.CreateMapper();
-            _ContactToDTOMapper = _contaqtToDto.CreateMapper();
+            _unityOfWork = unityOfWork;
+            var configDtoToModel = new MapperConfiguration(cfg => {
+                cfg.CreateMap<ContactsModel, Contact>();
+                cfg.CreateMap<AddressModel, Address>();
+                cfg.CreateMap<EmailModel, Emails>();
+                cfg.CreateMap<TelefonNumberModel, TelefonNumbers>();
+            });
+            
+            var configModelToDto = new MapperConfiguration(cfg => {
+                cfg.CreateMap<Contact, ContactsModel>();
+                cfg.CreateMap<Address, AddressModel >();
+                cfg.CreateMap<Emails, EmailModel>();
+                cfg.CreateMap<TelefonNumbers, TelefonNumberModel >();
+            });
+            _DTOMToContactMapper = configDtoToModel.CreateMapper();
+            _ContactToDTOMapper = configModelToDto.CreateMapper();
+          
         }
         public void Add(ContactsModel values)
-        {
+        {   
             var contacts =_DTOMToContactMapper.Map<Contact>(values);
+            _unityOfWork.Contacts.Add(contacts);
+            _unityOfWork.Complete();
+        }
+        
+        // FIXME: Technical deb 
+        public List<ContactsModel> GetAllPagination()
+        {
+            var result =_unityOfWork.Contacts.GetAll();
+            return _ContactToDTOMapper.Map<List<ContactsModel>>(result);
             
-            _tourManagerContext.Contacts.Add(contacts);
-            _tourManagerContext.SaveChanges();
+            
         }
         
         public void Update(ContactsModel values)
         {
             var contacts =_DTOMToContactMapper.Map<Contact>(values);
-            _tourManagerContext.Contacts.Update(contacts);
-            _tourManagerContext.SaveChanges();
+            _unityOfWork.Contacts.Update(contacts);
+            _unityOfWork.Complete();
         }
         
         public void Delete(int id)
         {
-            var entity = _tourManagerContext.Contacts.SingleOrDefault(x => x.Id == id);
-            _tourManagerContext.Contacts.Remove(entity);
-            _tourManagerContext.SaveChanges();
+            var entity = _unityOfWork.Contacts.SingleOrDefault(x => x.Id == id);
+            _unityOfWork.Contacts.Remove(entity);
+            _unityOfWork.Complete();
         }
         
         public ContactsModel SelectBy(int id)
         {
-            var contact = _tourManagerContext.Contacts.SingleOrDefault(x => x.Id == id);
+            var contact = (Contact)_unityOfWork.Contacts.GetById(id);
             if (contact == null)
             {
                 return null;
             }
-            return _DTOMToContactMapper.Map<ContactsModel>(contact);
+            return _ContactToDTOMapper.Map<ContactsModel>(contact);
+        }
+        
+        public List<ContactsModel> Find(Expression<Func<Contact, bool>> predicate)
+        {
+            var contacts = _unityOfWork.Contacts.Find(predicate);
+            if (contacts == null)
+            {
+                return null;
+            }
+            var contactss =_ContactToDTOMapper.Map<List<ContactsModel>>(contacts);
+            return contactss;
         }
     }
 }
