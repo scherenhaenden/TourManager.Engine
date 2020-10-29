@@ -1,4 +1,4 @@
-namespace TourManagerLogic.ApiModels
+namespace TourManagerLogic.Core.Models
 {
     public class AddressModel
     {

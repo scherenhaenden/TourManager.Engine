@@ -55,6 +55,8 @@ namespace TourManager.Data.Migrations
                     Name = table.Column<string>(nullable: true),
                     loadIn = table.Column<DateTime>(nullable: false),
                     curfView = table.Column<DateTime>(nullable: false),
+                    MaxCapacity = table.Column<int>(nullable: false),
+                    Notes = table.Column<string>(nullable: true),
                     TouringDatesId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>

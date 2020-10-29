@@ -22,5 +22,9 @@ namespace TourManager.Data.Core.Domain
         public DateTime loadIn { get; set; }
         public DateTime curfView { get; set; }
         
+        public int MaxCapacity{ get; set; }
+        
+        public string Notes { get; set; }
+        
     }
 }

@@ -1,14 +1,13 @@
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace TourManagerLogic.ApiModels
+namespace TourManagerLogic.Core.Models
 {
     public class ContactsModel
     {
         public int Id { get; set; }
 
-        public String FirstName { get; set; } = "";
+        public string FirstName { get; set; } 
         
         public string LastName { get; set; }
 
