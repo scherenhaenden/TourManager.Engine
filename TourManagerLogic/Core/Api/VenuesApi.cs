@@ -8,79 +8,82 @@ using TourManagerLogic.Core.Models;
 
 namespace TourManagerLogic.Core.Api
 {
-    public class CustomersApi
+    public class VenuesApi
     {
         private readonly IUnityOfWork _unityOfWork;
         private readonly IMapper _dtomToContactMapper;
         private readonly IMapper _contactToDtoMapper;
 
-        public CustomersApi(IUnityOfWork unityOfWork)
+        public VenuesApi(IUnityOfWork unityOfWork)
         {
             _unityOfWork = unityOfWork;
             var configDtoToModel = new MapperConfiguration(cfg => {
-                cfg.CreateMap<ContactsModel, Contact>();
+                cfg.CreateMap<VenueModel, Venues>();
                 cfg.CreateMap<AddressModel, Address>();
                 cfg.CreateMap<EmailModel, Emails>();
                 cfg.CreateMap<TelefonNumberModel, TelefonNumbers>();
+                cfg.CreateMap<ContactsModel, Contact>();
             });
             
             var configModelToDto = new MapperConfiguration(cfg => {
-                cfg.CreateMap<Contact, ContactsModel>();
+                cfg.CreateMap<Venues, VenueModel>();
                 cfg.CreateMap<Address, AddressModel >();
                 cfg.CreateMap<Emails, EmailModel>();
                 cfg.CreateMap<TelefonNumbers, TelefonNumberModel >();
+                cfg.CreateMap<Contact, ContactsModel>();
             });
             _dtomToContactMapper = configDtoToModel.CreateMapper();
             _contactToDtoMapper = configModelToDto.CreateMapper();
           
         }
-        public void Add(ContactsModel values)
+        
+        public void Add(VenueModel values)
         {   
-            var contacts =_dtomToContactMapper.Map<Contact>(values);
-            _unityOfWork.Contacts.Add(contacts);
+            var contacts =_dtomToContactMapper.Map<Venues>(values);
+            _unityOfWork.Venues.Add(contacts);
             _unityOfWork.Complete();
         }
         
-        // FIXME: Technical deb 
-        public List<ContactsModel> GetAllPagination()
+        public void Update(VenueModel values)
         {
-            var result =_unityOfWork.Contacts.GetAll();
-            return _contactToDtoMapper.Map<List<ContactsModel>>(result);
-        }
-        
-        public void Update(ContactsModel values)
-        {
-            var contacts =_dtomToContactMapper.Map<Contact>(values);
-            _unityOfWork.Contacts.Update(contacts);
+            var contacts =_dtomToContactMapper.Map<Venues>(values);
+            _unityOfWork.Venues.Update(contacts);
             _unityOfWork.Complete();
         }
         
         public void Delete(int id)
         {
-            var entity = _unityOfWork.Contacts.SingleOrDefault(x => x.Id == id);
-            _unityOfWork.Contacts.Remove(entity);
+            var entity = _unityOfWork.Venues.SingleOrDefault(x => x.Id == id);
+            _unityOfWork.Venues.Remove(entity);
             _unityOfWork.Complete();
         }
         
-        public ContactsModel SelectBy(int id)
+        public VenueModel SelectBy(int id)
         {
-            var contact = (Contact)_unityOfWork.Contacts.GetById(id);
+            var contact = (Venues)_unityOfWork.Venues.GetById(id);
             if (contact == null)
             {
                 return null;
             }
-            return _contactToDtoMapper.Map<ContactsModel>(contact);
+            return _contactToDtoMapper.Map<VenueModel>(contact);
         }
         
-        public List<ContactsModel> Find(Expression<Func<Contact, bool>> predicate)
+        public List<VenueModel> Find(Expression<Func<Venues, bool>> predicate)
         {
-            var contacts = _unityOfWork.Contacts.Find(predicate);
+            var contacts = _unityOfWork.Venues.Find(predicate);
             if (contacts == null)
             {
                 return null;
             }
-            var contactss =_contactToDtoMapper.Map<List<ContactsModel>>(contacts);
+            var contactss =_contactToDtoMapper.Map<List<VenueModel>>(contacts);
             return contactss;
         }
+        
+        public List<VenueModel> GetAllPagination()
+        {
+            var result =_unityOfWork.Venues.GetAll();
+            return _contactToDtoMapper.Map<List<VenueModel>>(result);
+        }
+
     }
 }
