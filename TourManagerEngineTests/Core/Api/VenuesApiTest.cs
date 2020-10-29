@@ -1,5 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Proxies;
 using NUnit.Framework;
 using TourManager.Data.Core.Configuration;
 using TourManager.Data.Persistence;
@@ -8,11 +7,9 @@ using TourManagerLogic.Core.Models;
 
 namespace TourManagerEngineTests.Core.Api
 {
-    public class CustomerApiTest
+    public class VenuesApiTest
     {
-
         private IUnityOfWork _unityOfWork;
-        private ContactsModel contactsModel;
         [SetUp]
         public void Setup()
         {   
@@ -24,9 +21,9 @@ namespace TourManagerEngineTests.Core.Api
             TourManagerContext tourManagerContext = new TourManagerContext(options.Options);
             _unityOfWork = new UnityOfWork(tourManagerContext);
         }
-
+        
         [Test]
-        public void Test1Add()
+        public void TestAdd()
         {
 
             var address = new AddressModel
@@ -38,52 +35,47 @@ namespace TourManagerEngineTests.Core.Api
                 PostalZip = "1231312",
                 HouseNameOrNumber = "199A"
             };
-            var customersApi = new CustomersApi(_unityOfWork);
-            contactsModel = new ContactsModel();
+            var venuesApi = new VenuesApi(_unityOfWork);
+            var contactsModel = new ContactsModel();
             contactsModel.FirstName = "Eddie";
             contactsModel.LastName = "FrankenStein";
             contactsModel.TelefonNumbers.Add(new TelefonNumberModel() {Number = "+555 3343" });
             contactsModel.Emails.Add(new EmailModel() {EmailAddress = "amazing@gmail.com"});
             contactsModel.Addresses.Add(address);
-            customersApi.Add(contactsModel);
-            var result =customersApi.Find(x => x.FirstName == contactsModel.FirstName && x.LastName == contactsModel.LastName);
+            
+            
+            VenueModel venueModel = new VenueModel();
+
+            venueModel.Name = "LaTaguarita";
+            EmailModel emailModel = new EmailModel();
+            emailModel.EmailAddress = "taguara@taguara.net";
+            
+            venueModel.Emails.Add(emailModel);
+            venueModel.TelefonNumbers.Add(new TelefonNumberModel() {Number = "+225 334323" });
+            venueModel.Contact.Add(contactsModel);
+
+            venueModel.MaxCapacity = 1500;
+            venueModel.Notes ="many notes";
+            venuesApi.Add(venueModel);
+                
+                
+            
+            
+            
+            var result =venuesApi.Find(x => x.Name == venueModel.Name);
             Assert.NotNull(result);
         }
         
         [Test]
-        public void Test2SelectById()
+        public void TestSelectById()
         {
 
-            var customersApi = new CustomersApi(_unityOfWork);
-            var result =customersApi.GetAllPagination()[0];
+            var venuesApi = new VenuesApi(_unityOfWork);
+            var result =venuesApi.GetAllPagination()[0];
             var id = result.Id;
-            var selectedOne = customersApi.SelectBy(result.Id);
+            var selectedOne = venuesApi.SelectBy(result.Id);
             Assert.AreEqual(id, selectedOne.Id);
         }
-        
-        
-        [Test]
-        public void Test3Find()
-        {
-            var customersApi = new CustomersApi(_unityOfWork);
-            var result =customersApi.Find(x => x.FirstName == contactsModel.FirstName && x.LastName == contactsModel.LastName);
-            Assert.Greater(result.Count, 0);
-        }
-        
-        [Test]
-        public void Test4Delete()
-        {
-            var customersApi = new CustomersApi(_unityOfWork);
-            var result =customersApi.Find(x => x.FirstName == contactsModel.FirstName && x.LastName == contactsModel.LastName);
 
-            foreach (var VARIABLE in result)
-            {
-                customersApi.Delete(VARIABLE.Id);
-            }
-            
-            result =customersApi.Find(x => x.FirstName == contactsModel.FirstName && x.LastName == contactsModel.LastName);
-           
-            Assert.AreEqual(result.Count, 0);
-        }
     }
 }
