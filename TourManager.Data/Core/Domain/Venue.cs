@@ -19,8 +19,10 @@ namespace TourManager.Data.Core.Domain
         public virtual ICollection<TelefonNumber> TelefonNumbers { get; set; }
         
         public virtual ICollection<Contact> Contact { get; set; }
-        public DateTime loadIn { get; set; }
-        public DateTime curfView { get; set; }
+        
+        public DateTime LoadIn { get; set; }
+        
+        public DateTime CurfView { get; set; }
         
         public int MaxCapacity{ get; set; }
         

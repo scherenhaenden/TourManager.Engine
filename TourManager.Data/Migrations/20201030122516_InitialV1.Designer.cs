@@ -9,7 +9,7 @@ using TourManager.Data.Core.Configuration;
 namespace TourManager.Data.Migrations
 {
     [DbContext(typeof(TourManagerContext))]
-    [Migration("20201030115338_InitialV1")]
+    [Migration("20201030122516_InitialV1")]
     partial class InitialV1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -283,7 +283,7 @@ namespace TourManager.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Venue");
+                    b.ToTable("Venues");
                 });
 
             modelBuilder.Entity("TourManager.Data.Core.Domain.Address", b =>

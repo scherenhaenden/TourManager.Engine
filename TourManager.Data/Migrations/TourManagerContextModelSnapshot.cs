@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TourManager.Data.Core.Configuration;
 
 namespace TourManager.Data.Migrations
@@ -280,9 +281,7 @@ namespace TourManager.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TouringDatesId");
-
-                    b.ToTable("Venue");
+                    b.ToTable("Venues");
                 });
 
             modelBuilder.Entity("TourManager.Data.Core.Domain.Address", b =>
