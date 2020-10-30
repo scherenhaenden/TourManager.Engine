@@ -1,5 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Proxies;
 using NUnit.Framework;
 using TourManager.Data.Core.Configuration;
 using TourManager.Data.Persistence;

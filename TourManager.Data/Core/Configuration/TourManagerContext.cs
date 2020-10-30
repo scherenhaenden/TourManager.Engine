@@ -1,4 +1,3 @@
-using System.IO;
 using Microsoft.EntityFrameworkCore;
 using TourManager.Data.Core.Domain;
 
