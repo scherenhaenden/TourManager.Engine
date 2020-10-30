@@ -1,6 +1,6 @@
 namespace TourManager.Data.Core.Domain
 {
-    public class Emails: TEntity
+    public class Email: TEntity
     {
         public string EmailAddress { get; set; }
     }

@@ -8,14 +8,14 @@ namespace TourManager.Data.Persistence
     {
         IRepository<Contact> Contacts { get; }
         IRepository<Address> Address { get; }
-        IRepository<Bands> Bands { get; }
-        IRepository<TouringDates> TouringDates { get; }
-        IRepository<Tours> Tours { get; }
-        IRepository<Venues> Venues { get; }
+        IRepository<Band> Bands { get; }
+        IRepository<TouringDate> TouringDates { get; }
+        IRepository<Tour> Tours { get; }
+        IRepository<Venue> Venues { get; }
         
-        IRepository<Emails> Emails { get; }
+        IRepository<Email> Emails { get; }
         
-        IRepository<TelefonNumbers> TelefonNumbers { get; }
+        IRepository<TelefonNumber> TelefonNumbers { get; }
 
         int Complete();
     }

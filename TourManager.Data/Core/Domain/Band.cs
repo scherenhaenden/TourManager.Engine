@@ -2,12 +2,12 @@ using System.Collections.Generic;
 
 namespace TourManager.Data.Core.Domain
 {
-    public class Bands: TEntity
+    public class Band: TEntity
     {
-        public Bands()
+        public Band()
         {
             Members = new HashSet<Contact>();
-            Emails = new HashSet<Emails>();
+            Emails = new HashSet<Email>();
         }
         
         public string Name { get; set; }
@@ -16,7 +16,7 @@ namespace TourManager.Data.Core.Domain
         public virtual ICollection<Contact> Members { get; set; }  
         public virtual Address Address { get; set; }
         
-        public virtual ICollection<Emails> Emails { get; set; }
+        public virtual ICollection<Email> Emails { get; set; }
         
     }
 }

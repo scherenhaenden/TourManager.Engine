@@ -1,6 +1,6 @@
 namespace TourManagerLogic.Core.Models
 {
-    public class EmailModel
+    public class EmailModel: BaseModel
     {
         public string EmailAddress { get; set; }
     }
