@@ -36,7 +36,7 @@ namespace TourManagerEngineTests.Core.Api
                 HouseNameOrNumber = "199A"
             };
             var venuesApi = new VenuesApi(_unityOfWork);
-            var contactsModel = new ContactsModel();
+            var contactsModel = new ContactModel();
             contactsModel.FirstName = "Eddie";
             contactsModel.LastName = "FrankenStein";
             contactsModel.TelefonNumbers.Add(new TelefonNumberModel() {Number = "+555 3343" });

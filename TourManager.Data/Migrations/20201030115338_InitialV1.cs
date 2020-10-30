@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TourManager.Data.Migrations
 {
-    public partial class CompleteAdresses : Migration
+    public partial class InitialV1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -23,28 +23,6 @@ namespace TourManager.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TouringDates",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Inserted = table.Column<DateTime>(nullable: false),
-                    LastUpdate = table.Column<DateTime>(nullable: false),
-                    DateOfTour = table.Column<DateTime>(nullable: false),
-                    ToursId = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_TouringDates", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_TouringDates_Tours_ToursId",
-                        column: x => x.ToursId,
-                        principalTable: "Tours",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Venues",
                 columns: table => new
                 {
@@ -53,21 +31,14 @@ namespace TourManager.Data.Migrations
                     Inserted = table.Column<DateTime>(nullable: false),
                     LastUpdate = table.Column<DateTime>(nullable: false),
                     Name = table.Column<string>(nullable: true),
-                    loadIn = table.Column<DateTime>(nullable: false),
-                    curfView = table.Column<DateTime>(nullable: false),
+                    LoadIn = table.Column<DateTime>(nullable: false),
+                    CurfView = table.Column<DateTime>(nullable: false),
                     MaxCapacity = table.Column<int>(nullable: false),
-                    Notes = table.Column<string>(nullable: true),
-                    TouringDatesId = table.Column<int>(nullable: true)
+                    Notes = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Venues", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Venues_TouringDates_TouringDatesId",
-                        column: x => x.TouringDatesId,
-                        principalTable: "TouringDates",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -82,14 +53,14 @@ namespace TourManager.Data.Migrations
                     ManagerId = table.Column<int>(nullable: true),
                     Style = table.Column<string>(nullable: true),
                     AddressId = table.Column<int>(nullable: true),
-                    ToursId = table.Column<int>(nullable: true)
+                    TourId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Bands", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Bands_Tours_ToursId",
-                        column: x => x.ToursId,
+                        name: "FK_Bands_Tours_TourId",
+                        column: x => x.TourId,
                         principalTable: "Tours",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -105,21 +76,57 @@ namespace TourManager.Data.Migrations
                     LastUpdate = table.Column<DateTime>(nullable: false),
                     FirstName = table.Column<string>(nullable: true),
                     LastName = table.Column<string>(nullable: true),
-                    BandsId = table.Column<int>(nullable: true),
-                    VenuesId = table.Column<int>(nullable: true)
+                    BandId = table.Column<int>(nullable: true),
+                    VenueId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Contacts", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Contacts_Bands_BandsId",
-                        column: x => x.BandsId,
+                        name: "FK_Contacts_Bands_BandId",
+                        column: x => x.BandId,
                         principalTable: "Bands",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Contacts_Venues_VenuesId",
-                        column: x => x.VenuesId,
+                        name: "FK_Contacts_Venues_VenueId",
+                        column: x => x.VenueId,
+                        principalTable: "Venues",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TouringDates",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Inserted = table.Column<DateTime>(nullable: false),
+                    LastUpdate = table.Column<DateTime>(nullable: false),
+                    DateOfTour = table.Column<DateTime>(nullable: false),
+                    VenueId = table.Column<int>(nullable: true),
+                    BandId = table.Column<int>(nullable: true),
+                    TourId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TouringDates", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_TouringDates_Bands_BandId",
+                        column: x => x.BandId,
+                        principalTable: "Bands",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_TouringDates_Tours_TourId",
+                        column: x => x.TourId,
+                        principalTable: "Tours",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_TouringDates_Venues_VenueId",
+                        column: x => x.VenueId,
                         principalTable: "Venues",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -140,7 +147,7 @@ namespace TourManager.Data.Migrations
                     PostalZip = table.Column<string>(nullable: true),
                     ExtranInfo = table.Column<string>(nullable: true),
                     ContactId = table.Column<int>(nullable: true),
-                    VenuesId = table.Column<int>(nullable: true)
+                    VenueId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -152,15 +159,15 @@ namespace TourManager.Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Address_Venues_VenuesId",
-                        column: x => x.VenuesId,
+                        name: "FK_Address_Venues_VenueId",
+                        column: x => x.VenueId,
                         principalTable: "Venues",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Emails",
+                name: "Email",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -168,35 +175,35 @@ namespace TourManager.Data.Migrations
                     Inserted = table.Column<DateTime>(nullable: false),
                     LastUpdate = table.Column<DateTime>(nullable: false),
                     EmailAddress = table.Column<string>(nullable: true),
-                    BandsId = table.Column<int>(nullable: true),
+                    BandId = table.Column<int>(nullable: true),
                     ContactId = table.Column<int>(nullable: true),
-                    VenuesId = table.Column<int>(nullable: true)
+                    VenueId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Emails", x => x.Id);
+                    table.PrimaryKey("PK_Email", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Emails_Bands_BandsId",
-                        column: x => x.BandsId,
+                        name: "FK_Email_Bands_BandId",
+                        column: x => x.BandId,
                         principalTable: "Bands",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Emails_Contacts_ContactId",
+                        name: "FK_Email_Contacts_ContactId",
                         column: x => x.ContactId,
                         principalTable: "Contacts",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Emails_Venues_VenuesId",
-                        column: x => x.VenuesId,
+                        name: "FK_Email_Venues_VenueId",
+                        column: x => x.VenueId,
                         principalTable: "Venues",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
-                name: "TelefonNumbers",
+                name: "TelefonNumber",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -205,20 +212,20 @@ namespace TourManager.Data.Migrations
                     LastUpdate = table.Column<DateTime>(nullable: false),
                     Number = table.Column<string>(nullable: true),
                     ContactId = table.Column<int>(nullable: true),
-                    VenuesId = table.Column<int>(nullable: true)
+                    VenueId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TelefonNumbers", x => x.Id);
+                    table.PrimaryKey("PK_TelefonNumber", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_TelefonNumbers_Contacts_ContactId",
+                        name: "FK_TelefonNumber_Contacts_ContactId",
                         column: x => x.ContactId,
                         principalTable: "Contacts",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_TelefonNumbers_Venues_VenuesId",
-                        column: x => x.VenuesId,
+                        name: "FK_TelefonNumber_Venues_VenueId",
+                        column: x => x.VenueId,
                         principalTable: "Venues",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -230,9 +237,9 @@ namespace TourManager.Data.Migrations
                 column: "ContactId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Address_VenuesId",
+                name: "IX_Address_VenueId",
                 table: "Address",
-                column: "VenuesId");
+                column: "VenueId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Bands_AddressId",
@@ -245,54 +252,59 @@ namespace TourManager.Data.Migrations
                 column: "ManagerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Bands_ToursId",
+                name: "IX_Bands_TourId",
                 table: "Bands",
-                column: "ToursId");
+                column: "TourId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Contacts_BandsId",
+                name: "IX_Contacts_BandId",
                 table: "Contacts",
-                column: "BandsId");
+                column: "BandId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Contacts_VenuesId",
+                name: "IX_Contacts_VenueId",
                 table: "Contacts",
-                column: "VenuesId");
+                column: "VenueId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Emails_BandsId",
-                table: "Emails",
-                column: "BandsId");
+                name: "IX_Email_BandId",
+                table: "Email",
+                column: "BandId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Emails_ContactId",
-                table: "Emails",
+                name: "IX_Email_ContactId",
+                table: "Email",
                 column: "ContactId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Emails_VenuesId",
-                table: "Emails",
-                column: "VenuesId");
+                name: "IX_Email_VenueId",
+                table: "Email",
+                column: "VenueId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TelefonNumbers_ContactId",
-                table: "TelefonNumbers",
+                name: "IX_TelefonNumber_ContactId",
+                table: "TelefonNumber",
                 column: "ContactId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TelefonNumbers_VenuesId",
-                table: "TelefonNumbers",
-                column: "VenuesId");
+                name: "IX_TelefonNumber_VenueId",
+                table: "TelefonNumber",
+                column: "VenueId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TouringDates_ToursId",
+                name: "IX_TouringDates_BandId",
                 table: "TouringDates",
-                column: "ToursId");
+                column: "BandId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Venues_TouringDatesId",
-                table: "Venues",
-                column: "TouringDatesId");
+                name: "IX_TouringDates_TourId",
+                table: "TouringDates",
+                column: "TourId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TouringDates_VenueId",
+                table: "TouringDates",
+                column: "VenueId");
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Bands_Contacts_ManagerId",
@@ -322,10 +334,13 @@ namespace TourManager.Data.Migrations
                 table: "Bands");
 
             migrationBuilder.DropTable(
-                name: "Emails");
+                name: "Email");
 
             migrationBuilder.DropTable(
-                name: "TelefonNumbers");
+                name: "TelefonNumber");
+
+            migrationBuilder.DropTable(
+                name: "TouringDates");
 
             migrationBuilder.DropTable(
                 name: "Contacts");
@@ -337,13 +352,10 @@ namespace TourManager.Data.Migrations
                 name: "Address");
 
             migrationBuilder.DropTable(
-                name: "Venues");
-
-            migrationBuilder.DropTable(
-                name: "TouringDates");
-
-            migrationBuilder.DropTable(
                 name: "Tours");
+
+            migrationBuilder.DropTable(
+                name: "Venues");
         }
     }
 }

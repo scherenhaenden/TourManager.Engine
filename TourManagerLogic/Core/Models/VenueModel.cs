@@ -11,7 +11,7 @@ namespace TourManagerLogic.Core.Models
         public virtual ICollection<EmailModel> Emails { get; set; } = new List<EmailModel>();
         public virtual ICollection<TelefonNumberModel> TelefonNumbers { get; set; } = new List<TelefonNumberModel>();
         
-        public virtual ICollection<ContactsModel> Contact { get; set; } = new List<ContactsModel>();
+        public virtual ICollection<ContactModel> Contact { get; set; } = new List<ContactModel>();
         public DateTime loadIn { get; set; }
         public DateTime curfView { get; set; }
         

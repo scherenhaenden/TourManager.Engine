@@ -1,6 +1,6 @@
 namespace TourManager.Data.Core.Domain
 {
-    public class TelefonNumbers: TEntity
+    public class TelefonNumber: TEntity
     {
         public string Number { get; set; }
     }

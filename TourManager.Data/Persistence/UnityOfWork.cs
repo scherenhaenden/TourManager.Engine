@@ -9,38 +9,44 @@ namespace TourManager.Data.Persistence
     {
         private readonly TourManagerContext _tourManagerContext;
         private IUnityOfWork _unityOfWorkImplementation;
+        private bool _disposed;
 
         public UnityOfWork(TourManagerContext tourManagerContext)
         {
             _tourManagerContext = tourManagerContext;
             Contacts = new Repository<Contact>(_tourManagerContext);
             Address = new Repository<Address>(_tourManagerContext);
-            Bands = new Repository<Bands>(_tourManagerContext);
-            TouringDates = new Repository<TouringDates>(_tourManagerContext);
-            Tours = new Repository<Tours>(_tourManagerContext);
-            Venues = new Repository<Venues>(_tourManagerContext);
+            Bands = new Repository<Band>(_tourManagerContext);
+            TouringDates = new Repository<TouringDate>(_tourManagerContext);
+            Tours = new Repository<Tour>(_tourManagerContext);
+            Venues = new Repository<Venue>(_tourManagerContext);
             
-            Emails = new Repository<Emails>(_tourManagerContext);
-            TelefonNumbers = new Repository<TelefonNumbers>(_tourManagerContext);
+            Emails = new Repository<Email>(_tourManagerContext);
+            TelefonNumbers = new Repository<TelefonNumber>(_tourManagerContext);
         }
 
         public void Dispose()
         {
-            throw new System.NotImplementedException();
+            if (!this._disposed) {
+                if (_disposed) {
+                    _tourManagerContext.Dispose();
+                }
+                this._disposed = true;
+            }
         }
 
         public IRepository<Contact> Contacts { get; }
         public IRepository<Address> Address { get; }
 
-        public IRepository<Bands> Bands { get; }
+        public IRepository<Band> Bands { get; }
 
-        public IRepository<TouringDates> TouringDates { get; }
+        public IRepository<TouringDate> TouringDates { get; }
 
-        public IRepository<Tours> Tours { get; }
+        public IRepository<Tour> Tours { get; }
 
-        public IRepository<Venues> Venues { get; }
-        public IRepository<Emails> Emails { get; }
-        public IRepository<TelefonNumbers> TelefonNumbers { get; }
+        public IRepository<Venue> Venues { get; }
+        public IRepository<Email> Emails { get; }
+        public IRepository<TelefonNumber> TelefonNumbers { get; }
 
         public int Complete()
         {

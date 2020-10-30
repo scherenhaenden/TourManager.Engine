@@ -18,19 +18,19 @@ namespace TourManagerLogic.Core.Api
         {
             _unityOfWork = unityOfWork;
             var configDtoToModel = new MapperConfiguration(cfg => {
-                cfg.CreateMap<VenueModel, Venues>();
+                cfg.CreateMap<VenueModel, Venue>();
                 cfg.CreateMap<AddressModel, Address>();
-                cfg.CreateMap<EmailModel, Emails>();
-                cfg.CreateMap<TelefonNumberModel, TelefonNumbers>();
-                cfg.CreateMap<ContactsModel, Contact>();
+                cfg.CreateMap<EmailModel, Email>();
+                cfg.CreateMap<TelefonNumberModel, TelefonNumber>();
+                cfg.CreateMap<ContactModel, Contact>();
             });
             
             var configModelToDto = new MapperConfiguration(cfg => {
-                cfg.CreateMap<Venues, VenueModel>();
+                cfg.CreateMap<Venue, VenueModel>();
                 cfg.CreateMap<Address, AddressModel >();
-                cfg.CreateMap<Emails, EmailModel>();
-                cfg.CreateMap<TelefonNumbers, TelefonNumberModel >();
-                cfg.CreateMap<Contact, ContactsModel>();
+                cfg.CreateMap<Email, EmailModel>();
+                cfg.CreateMap<TelefonNumber, TelefonNumberModel >();
+                cfg.CreateMap<Contact, ContactModel>();
             });
             _dtomToContactMapper = configDtoToModel.CreateMapper();
             _contactToDtoMapper = configModelToDto.CreateMapper();
@@ -39,14 +39,14 @@ namespace TourManagerLogic.Core.Api
         
         public void Add(VenueModel values)
         {   
-            var contacts =_dtomToContactMapper.Map<Venues>(values);
+            var contacts =_dtomToContactMapper.Map<Venue>(values);
             _unityOfWork.Venues.Add(contacts);
             _unityOfWork.Complete();
         }
         
         public void Update(VenueModel values)
         {
-            var contacts =_dtomToContactMapper.Map<Venues>(values);
+            var contacts =_dtomToContactMapper.Map<Venue>(values);
             _unityOfWork.Venues.Update(contacts);
             _unityOfWork.Complete();
         }
@@ -60,7 +60,7 @@ namespace TourManagerLogic.Core.Api
         
         public VenueModel SelectBy(int id)
         {
-            var contact = (Venues)_unityOfWork.Venues.GetById(id);
+            var contact = (Venue)_unityOfWork.Venues.GetById(id);
             if (contact == null)
             {
                 return null;
@@ -68,7 +68,7 @@ namespace TourManagerLogic.Core.Api
             return _contactToDtoMapper.Map<VenueModel>(contact);
         }
         
-        public List<VenueModel> Find(Expression<Func<Venues, bool>> predicate)
+        public List<VenueModel> Find(Expression<Func<Venue, bool>> predicate)
         {
             var contacts = _unityOfWork.Venues.Find(predicate);
             if (contacts == null)
