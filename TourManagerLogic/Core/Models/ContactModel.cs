@@ -3,10 +3,8 @@ using System.Collections.ObjectModel;
 
 namespace TourManagerLogic.Core.Models
 {
-    public class ContactsModel
+    public class ContactModel: BaseModel
     {
-        public int Id { get; set; }
-
         public string FirstName { get; set; } 
         
         public string LastName { get; set; }

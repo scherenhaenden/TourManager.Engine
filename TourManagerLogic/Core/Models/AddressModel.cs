@@ -1,6 +1,6 @@
 namespace TourManagerLogic.Core.Models
 {
-    public class AddressModel
+    public class AddressModel: BaseModel
     {
         public string Country { get; set; }
         public string City { get; set; }

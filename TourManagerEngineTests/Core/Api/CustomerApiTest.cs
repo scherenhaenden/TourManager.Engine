@@ -1,5 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Proxies;
 using NUnit.Framework;
 using TourManager.Data.Core.Configuration;
 using TourManager.Data.Persistence;
@@ -12,7 +11,7 @@ namespace TourManagerEngineTests.Core.Api
     {
 
         private IUnityOfWork _unityOfWork;
-        private ContactsModel contactsModel;
+        private ContactModel _contactModel;
         [SetUp]
         public void Setup()
         {   
@@ -38,15 +37,15 @@ namespace TourManagerEngineTests.Core.Api
                 PostalZip = "1231312",
                 HouseNameOrNumber = "199A"
             };
-            var customersApi = new CustomersApi(_unityOfWork);
-            contactsModel = new ContactsModel();
-            contactsModel.FirstName = "Eddie";
-            contactsModel.LastName = "FrankenStein";
-            contactsModel.TelefonNumbers.Add(new TelefonNumberModel() {Number = "+555 3343" });
-            contactsModel.Emails.Add(new EmailModel() {EmailAddress = "amazing@gmail.com"});
-            contactsModel.Addresses.Add(address);
-            customersApi.Add(contactsModel);
-            var result =customersApi.Find(x => x.FirstName == contactsModel.FirstName && x.LastName == contactsModel.LastName);
+            var customersApi = new ContacsApi(_unityOfWork);
+            _contactModel = new ContactModel();
+            _contactModel.FirstName = "Eddie";
+            _contactModel.LastName = "FrankenStein";
+            _contactModel.TelefonNumbers.Add(new TelefonNumberModel() {Number = "+555 3343" });
+            _contactModel.Emails.Add(new EmailModel() {EmailAddress = "amazing@gmail.com"});
+            _contactModel.Addresses.Add(address);
+            customersApi.Add(_contactModel);
+            var result =customersApi.Find(x => x.FirstName == _contactModel.FirstName && x.LastName == _contactModel.LastName);
             Assert.NotNull(result);
         }
         
@@ -54,7 +53,7 @@ namespace TourManagerEngineTests.Core.Api
         public void Test2SelectById()
         {
 
-            var customersApi = new CustomersApi(_unityOfWork);
+            var customersApi = new ContacsApi(_unityOfWork);
             var result =customersApi.GetAllPagination()[0];
             var id = result.Id;
             var selectedOne = customersApi.SelectBy(result.Id);
@@ -65,23 +64,23 @@ namespace TourManagerEngineTests.Core.Api
         [Test]
         public void Test3Find()
         {
-            var customersApi = new CustomersApi(_unityOfWork);
-            var result =customersApi.Find(x => x.FirstName == contactsModel.FirstName && x.LastName == contactsModel.LastName);
+            var customersApi = new ContacsApi(_unityOfWork);
+            var result =customersApi.Find(x => x.FirstName == _contactModel.FirstName && x.LastName == _contactModel.LastName);
             Assert.Greater(result.Count, 0);
         }
         
         [Test]
         public void Test4Delete()
         {
-            var customersApi = new CustomersApi(_unityOfWork);
-            var result =customersApi.Find(x => x.FirstName == contactsModel.FirstName && x.LastName == contactsModel.LastName);
+            var customersApi = new ContacsApi(_unityOfWork);
+            var result =customersApi.Find(x => x.FirstName == _contactModel.FirstName && x.LastName == _contactModel.LastName);
 
             foreach (var VARIABLE in result)
             {
                 customersApi.Delete(VARIABLE.Id);
             }
             
-            result =customersApi.Find(x => x.FirstName == contactsModel.FirstName && x.LastName == contactsModel.LastName);
+            result =customersApi.Find(x => x.FirstName == _contactModel.FirstName && x.LastName == _contactModel.LastName);
            
             Assert.AreEqual(result.Count, 0);
         }

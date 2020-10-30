@@ -8,33 +8,33 @@ using TourManagerLogic.Core.Models;
 
 namespace TourManagerLogic.Core.Api
 {
-    public class CustomersApi
+    public class ContacsApi
     {
         private readonly IUnityOfWork _unityOfWork;
         private readonly IMapper _dtomToContactMapper;
         private readonly IMapper _contactToDtoMapper;
 
-        public CustomersApi(IUnityOfWork unityOfWork)
+        public ContacsApi(IUnityOfWork unityOfWork)
         {
             _unityOfWork = unityOfWork;
             var configDtoToModel = new MapperConfiguration(cfg => {
-                cfg.CreateMap<ContactsModel, Contact>();
+                cfg.CreateMap<ContactModel, Contact>();
                 cfg.CreateMap<AddressModel, Address>();
-                cfg.CreateMap<EmailModel, Emails>();
-                cfg.CreateMap<TelefonNumberModel, TelefonNumbers>();
+                cfg.CreateMap<EmailModel, Email>();
+                cfg.CreateMap<TelefonNumberModel, TelefonNumber>();
             });
             
             var configModelToDto = new MapperConfiguration(cfg => {
-                cfg.CreateMap<Contact, ContactsModel>();
+                cfg.CreateMap<Contact, ContactModel>();
                 cfg.CreateMap<Address, AddressModel >();
-                cfg.CreateMap<Emails, EmailModel>();
-                cfg.CreateMap<TelefonNumbers, TelefonNumberModel >();
+                cfg.CreateMap<Email, EmailModel>();
+                cfg.CreateMap<TelefonNumber, TelefonNumberModel >();
             });
             _dtomToContactMapper = configDtoToModel.CreateMapper();
             _contactToDtoMapper = configModelToDto.CreateMapper();
           
         }
-        public void Add(ContactsModel values)
+        public void Add(ContactModel values)
         {   
             var contacts =_dtomToContactMapper.Map<Contact>(values);
             _unityOfWork.Contacts.Add(contacts);
@@ -42,13 +42,13 @@ namespace TourManagerLogic.Core.Api
         }
         
         // FIXME: Technical deb 
-        public List<ContactsModel> GetAllPagination()
+        public List<ContactModel> GetAllPagination()
         {
             var result =_unityOfWork.Contacts.GetAll();
-            return _contactToDtoMapper.Map<List<ContactsModel>>(result);
+            return _contactToDtoMapper.Map<List<ContactModel>>(result);
         }
         
-        public void Update(ContactsModel values)
+        public void Update(ContactModel values)
         {
             var contacts =_dtomToContactMapper.Map<Contact>(values);
             _unityOfWork.Contacts.Update(contacts);
@@ -62,24 +62,24 @@ namespace TourManagerLogic.Core.Api
             _unityOfWork.Complete();
         }
         
-        public ContactsModel SelectBy(int id)
+        public ContactModel SelectBy(int id)
         {
             var contact = (Contact)_unityOfWork.Contacts.GetById(id);
             if (contact == null)
             {
                 return null;
             }
-            return _contactToDtoMapper.Map<ContactsModel>(contact);
+            return _contactToDtoMapper.Map<ContactModel>(contact);
         }
         
-        public List<ContactsModel> Find(Expression<Func<Contact, bool>> predicate)
+        public List<ContactModel> Find(Expression<Func<Contact, bool>> predicate)
         {
             var contacts = _unityOfWork.Contacts.Find(predicate);
             if (contacts == null)
             {
                 return null;
             }
-            var contactss =_contactToDtoMapper.Map<List<ContactsModel>>(contacts);
+            var contactss =_contactToDtoMapper.Map<List<ContactModel>>(contacts);
             return contactss;
         }
     }
