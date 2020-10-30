@@ -23,7 +23,7 @@ namespace TourManager.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Venues",
+                name: "Venue",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -91,7 +91,7 @@ namespace TourManager.Data.Migrations
                     table.ForeignKey(
                         name: "FK_Contacts_Venues_VenueId",
                         column: x => x.VenueId,
-                        principalTable: "Venues",
+                        principalTable: "Venue",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -127,7 +127,7 @@ namespace TourManager.Data.Migrations
                     table.ForeignKey(
                         name: "FK_TouringDates_Venues_VenueId",
                         column: x => x.VenueId,
-                        principalTable: "Venues",
+                        principalTable: "Venue",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -161,7 +161,7 @@ namespace TourManager.Data.Migrations
                     table.ForeignKey(
                         name: "FK_Address_Venues_VenueId",
                         column: x => x.VenueId,
-                        principalTable: "Venues",
+                        principalTable: "Venue",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -197,7 +197,7 @@ namespace TourManager.Data.Migrations
                     table.ForeignKey(
                         name: "FK_Email_Venues_VenueId",
                         column: x => x.VenueId,
-                        principalTable: "Venues",
+                        principalTable: "Venue",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -226,7 +226,7 @@ namespace TourManager.Data.Migrations
                     table.ForeignKey(
                         name: "FK_TelefonNumber_Venues_VenueId",
                         column: x => x.VenueId,
-                        principalTable: "Venues",
+                        principalTable: "Venue",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -355,7 +355,7 @@ namespace TourManager.Data.Migrations
                 name: "Tours");
 
             migrationBuilder.DropTable(
-                name: "Venues");
+                name: "Venue");
         }
     }
 }

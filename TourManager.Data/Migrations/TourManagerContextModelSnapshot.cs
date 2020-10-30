@@ -282,7 +282,7 @@ namespace TourManager.Data.Migrations
 
                     b.HasIndex("TouringDatesId");
 
-                    b.ToTable("Venues");
+                    b.ToTable("Venue");
                 });
 
             modelBuilder.Entity("TourManager.Data.Core.Domain.Address", b =>
