@@ -21,36 +21,6 @@ namespace TourManagerEngineTests.Core.Api
         [SetUp]
         public void Setup()
         {   
-            
-            var servCollection = new ServiceCollection();
-            
-            servCollection.AddDbContext<TourManagerContext>
-            (
-                x =>
-                {
-                    x.UseSqlite($"Data Source=./TourManager.db");
-                    x.UseLazyLoadingProxies();
-
-                });
-            servCollection.AddScoped<IUnityOfWork, UnityOfWork>();
-            
-            servCollection.AddAutoMapper(( cfg) =>
-            {
-                cfg.AddCollectionMappers();
-                cfg.UseEntityFrameworkCoreModel<TourManagerContext>(servCollection);
-            });
-            
-           
-               
-            var iMapperConfiguration = new MapperConfiguration(cfg => {
-                cfg.AddCollectionMappers();
-                cfg.AddCollectionMappers();
-                cfg.UseEntityFrameworkCoreModel<TourManagerContext>(servCollection);
-                //cfg.UseEntityFrameworkCoreModel<GenerateEntityFrameworkCorePrimaryKeyPropertyMaps<TourManagerContext>>(null);
-            });
-            
-         
-            
             DbContextOptionsBuilder<TourManagerContext> options = new DbContextOptionsBuilder<TourManagerContext>();
             options.UseLazyLoadingProxies();
             //options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
@@ -59,8 +29,7 @@ namespace TourManagerEngineTests.Core.Api
             options.UseSqlite($"Data Source=./TourManager.db");
             TourManagerContext tourManagerContext = new TourManagerContext(options.Options);
             _unityOfWork = new UnityOfWork(tourManagerContext);
-
-            _contacsApi = new ContacsApi(_unityOfWork, iMapperConfiguration);
+            _contacsApi = new ContacsApi(_unityOfWork);            
         }
 
         [Test]
@@ -115,10 +84,7 @@ namespace TourManagerEngineTests.Core.Api
             var result =customersApi.Find(x => x.FirstName == _contactModel.FirstName && x.LastName == _contactModel.LastName);
             Assert.Greater(result.Count, 0);
         }
-        
-        
-        
-         
+
         [Test]
         public void Test4_1Update()
         {
@@ -134,15 +100,7 @@ namespace TourManagerEngineTests.Core.Api
             customersApi.Update(_contactModel);
             
             var updatedResult =customersApi.SelectBy(_contactModel.Id);
-            
-            
-
-
-
-
-
-
-                Assert.AreEqual(updatedResult.FirstName,  _contactModel.FirstName);
+            Assert.AreEqual(updatedResult.FirstName,  _contactModel.FirstName);
         }
         
         [Test]
