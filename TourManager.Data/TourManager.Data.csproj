@@ -2,9 +2,9 @@
 
     <PropertyGroup>
         <TargetFramework>netcoreapp3.1</TargetFramework>
-        <PackageVersion>0.2.5</PackageVersion>
+        <PackageVersion>0.2.6</PackageVersion>
         <Title>TourManager.Data</Title>
-        <AssemblyVersion>0.2.5</AssemblyVersion>
+        <AssemblyVersion>0.2.6</AssemblyVersion>
         <Copyright>Eddie Krill</Copyright>
         <PackageProjectUrl>https://github.com/scherenhaenden/TourManager.Engine</PackageProjectUrl>
         <RepositoryUrl>https://github.com/scherenhaenden/TourManager.Engine</RepositoryUrl>
@@ -18,6 +18,7 @@
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
       <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.9" />
+      <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
     </ItemGroup>
 
     <ItemGroup>

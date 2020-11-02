@@ -17,6 +17,7 @@ namespace TourManager.Data.Core.Configuration
         public DbSet<Tour> Tours { get; set; }
         public TourManagerContext (DbContextOptions<TourManagerContext> options) : base(options)
         {
+            
             Database.Migrate();
         }
         
