@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using TourManager.Data.Core.Configuration;
 using TourManager.Data.Core.Repository;
 
@@ -53,8 +55,12 @@ namespace TourManager.Data.Persistence.Repositories
         }
 
         public void Update(TEntity entity)
-        {
-            _context.Set<TEntity>().Update(entity);
+        {   
+            
+            var entitySwap =_context.Set<TEntity>().SingleOrDefault(x =>x != null && x.Id == entity.Id);
+            var values= JsonConvert.SerializeObject(entity);
+            entitySwap = JsonConvert.DeserializeObject<TEntity>(values);
+            _context.Set<TEntity>().Update(entitySwap);
         }
 
         public void Remove(TEntity entity)
