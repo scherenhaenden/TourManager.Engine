@@ -9,8 +9,8 @@ namespace TourManager.Data.Persistence
     {
         private readonly TourManagerContext _tourManagerContext;
         private IUnityOfWork _unityOfWorkImplementation;
-        private bool _disposed;
-
+        private bool _disposed;        
+        //FIXME: Microsoft.EntityFrameworkCore.Proxies
         public UnityOfWork(TourManagerContext tourManagerContext)
         {
             _tourManagerContext = tourManagerContext;

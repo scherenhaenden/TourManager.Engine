@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using TourManager.Data.Core.Configuration;
 using TourManager.Data.Core.Repository;
 
@@ -53,7 +55,7 @@ namespace TourManager.Data.Persistence.Repositories
         }
 
         public void Update(TEntity entity)
-        {
+        {     
             _context.Set<TEntity>().Update(entity);
         }
 
