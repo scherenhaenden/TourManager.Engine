@@ -55,12 +55,8 @@ namespace TourManager.Data.Persistence.Repositories
         }
 
         public void Update(TEntity entity)
-        {   
-            
-            var entitySwap =_context.Set<TEntity>().SingleOrDefault(x =>x != null && x.Id == entity.Id);
-            var values= JsonConvert.SerializeObject(entity);
-            entitySwap = JsonConvert.DeserializeObject<TEntity>(values);
-            _context.Set<TEntity>().Update(entitySwap);
+        {     
+            _context.Set<TEntity>().Update(entity);
         }
 
         public void Remove(TEntity entity)
