@@ -4,6 +4,7 @@ using AutoMapper.EquivalencyExpression;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.Extensions.DependencyInjection;
+
 using NUnit.Framework;
 using TourManager.Data.Core.Configuration;
 using TourManager.Data.Persistence;
@@ -18,6 +19,7 @@ namespace TourManagerEngineTests.Core.Api
         private IUnityOfWork _unityOfWork;
         private ContactModel _contactModel;
         private ContacsApi _contacsApi;
+
         [SetUp]
         public void Setup()
         {   
@@ -46,6 +48,7 @@ namespace TourManagerEngineTests.Core.Api
                 HouseNameOrNumber = "199A"
             };
             var customersApi = _contacsApi;//new ContacsApi(_unityOfWork);
+
             _contactModel = new ContactModel();
             _contactModel.FirstName = "Eddie";
             _contactModel.LastName = "FrankenStein";
@@ -60,8 +63,8 @@ namespace TourManagerEngineTests.Core.Api
         [Test]
         public void Test2SelectById()
         {
-
             var customersApi = _contacsApi;//new ContacsApi(_unityOfWork);
+
             var result =customersApi.GetAllPagination()[0];
             var id = result.Id;
             var selectedOne = customersApi.SelectBy(result.Id);
@@ -72,7 +75,9 @@ namespace TourManagerEngineTests.Core.Api
         [Test]
         public void Test3Find()
         {
+
             var customersApi = _contacsApi;//new ContacsApi(_unityOfWork);
+
             var result =customersApi.Find(x => x.FirstName == _contactModel.FirstName && x.LastName == _contactModel.LastName);
             Assert.Greater(result.Count, 0);
         }
@@ -80,6 +85,7 @@ namespace TourManagerEngineTests.Core.Api
         [Test]
         public void Test3_1FindWithDependenvies()
         {
+
             var customersApi = _contacsApi;//new ContacsApi(_unityOfWork);
             var result =customersApi.Find(x => x.FirstName == _contactModel.FirstName && x.LastName == _contactModel.LastName);
             Assert.Greater(result.Count, 0);
@@ -107,6 +113,7 @@ namespace TourManagerEngineTests.Core.Api
         public void Test5Delete()
         {
             var customersApi = _contacsApi;//new ContacsApi(_unityOfWork);
+
             var result =customersApi.Find(x => x.FirstName == _contactModel.FirstName && x.LastName == _contactModel.LastName);
 
             foreach (var VARIABLE in result)
