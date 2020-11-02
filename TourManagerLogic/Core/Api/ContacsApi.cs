@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using AutoMapper;
+using AutoMapper.EquivalencyExpression;
 using TourManager.Data.Core.Domain;
 using TourManager.Data.Persistence;
 using TourManagerLogic.Core.Models;
@@ -18,17 +19,29 @@ namespace TourManagerLogic.Core.Api
         {
             _unityOfWork = unityOfWork;
             var configDtoToModel = new MapperConfiguration(cfg => {
-                cfg.CreateMap<ContactModel, Contact>();
-                cfg.CreateMap<AddressModel, Address>();
-                cfg.CreateMap<EmailModel, Email>();
-                cfg.CreateMap<TelefonNumberModel, TelefonNumber>();
+                cfg.AddCollectionMappers();
+                cfg.CreateMap<ContactModel, Contact>()
+                    .ForMember(dest => dest.Addresses, opt => opt.UseDestinationValue())
+                    .ForMember(dest => dest.Emails, opt => opt.UseDestinationValue())
+                    .ForMember(dest => dest.TelefonNumbers, opt => opt.UseDestinationValue())
+                    
+                    ;
+                cfg.CreateMap<ICollection<AddressModel>, ICollection<Address>>();
+                cfg.CreateMap<ICollection<EmailModel>, ICollection<Email>>();
+                cfg.CreateMap<ICollection<TelefonNumberModel>, ICollection<TelefonNumber>>();
+                
             });
             
             var configModelToDto = new MapperConfiguration(cfg => {
-                cfg.CreateMap<Contact, ContactModel>();
-                cfg.CreateMap<Address, AddressModel >();
-                cfg.CreateMap<Email, EmailModel>();
-                cfg.CreateMap<TelefonNumber, TelefonNumberModel >();
+                cfg.AddCollectionMappers();
+                cfg.CreateMap<Contact, ContactModel>()
+                    .ForMember(dest => dest.Addresses, opt => opt.UseDestinationValue())
+                    .ForMember(dest => dest.Emails, opt => opt.UseDestinationValue())
+                    .ForMember(dest => dest.TelefonNumbers, opt => opt.UseDestinationValue())
+                    ;
+                cfg.CreateMap<ICollection<Address>, ICollection<AddressModel> >();
+                cfg.CreateMap< ICollection<Email>, ICollection<EmailModel>>();
+                cfg.CreateMap< ICollection<TelefonNumber>, ICollection<TelefonNumberModel> >();
             });
             _dtomToContactMapper = configDtoToModel.CreateMapper();
             _contactToDtoMapper = configModelToDto.CreateMapper();
