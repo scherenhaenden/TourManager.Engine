@@ -2,9 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using AutoMapper;
-using AutoMapper.EntityFrameworkCore;
 using AutoMapper.EquivalencyExpression;
-using TourManager.Data.Core.Configuration;
 using TourManager.Data.Core.Domain;
 using TourManager.Data.Persistence;
 using TourManagerLogic.Core.Models;
@@ -32,11 +30,13 @@ namespace TourManagerLogic.Core.Api
                 cfg.CreateMap<ContactModel, Contact>()
                     .ForMember(dest => dest.Addresses, opt => opt.UseDestinationValue())
                     .ForMember(dest => dest.Emails, opt => opt.UseDestinationValue())
-                    .ForMember(dest => dest.TelefonNumbers, opt => opt.UseDestinationValue());
-                cfg.CreateMap<AddressModel, Address>();
-                cfg.CreateMap<EmailModel, Email>();
-                cfg.CreateMap<TelefonNumberModel, TelefonNumber>();
-                //cfg.UseEntityFrameworkCoreModel<GenerateEntityFrameworkCorePrimaryKeyPropertyMaps<TourManagerContext>>(null);
+                    .ForMember(dest => dest.TelefonNumbers, opt => opt.UseDestinationValue())
+                    
+                    ;
+                cfg.CreateMap<ICollection<AddressModel>, ICollection<Address>>();
+                cfg.CreateMap<ICollection<EmailModel>, ICollection<Email>>();
+                cfg.CreateMap<ICollection<TelefonNumberModel>, ICollection<TelefonNumber>>();
+                
             });
             
             var configModelToDto = new MapperConfiguration(cfg => {
@@ -44,11 +44,11 @@ namespace TourManagerLogic.Core.Api
                 cfg.CreateMap<Contact, ContactModel>()
                     .ForMember(dest => dest.Addresses, opt => opt.UseDestinationValue())
                     .ForMember(dest => dest.Emails, opt => opt.UseDestinationValue())
-                    .ForMember(dest => dest.TelefonNumbers, opt => opt.UseDestinationValue());
-                cfg.CreateMap<Address, AddressModel >();
-                cfg.CreateMap<Email, EmailModel>();
-                cfg.CreateMap<TelefonNumber, TelefonNumberModel >();
-                //cfg.UseEntityFrameworkCoreModel<GenerateEntityFrameworkCorePrimaryKeyPropertyMaps<TourManagerContext>>(null);
+                    .ForMember(dest => dest.TelefonNumbers, opt => opt.UseDestinationValue())
+                    ;
+                cfg.CreateMap<ICollection<Address>, ICollection<AddressModel> >();
+                cfg.CreateMap< ICollection<Email>, ICollection<EmailModel>>();
+                cfg.CreateMap< ICollection<TelefonNumber>, ICollection<TelefonNumberModel> >();
             });
             _dtomToContactMapper = configDtoToModel.CreateMapper();
             _contactToDtoMapper = configModelToDto.CreateMapper();
@@ -73,10 +73,9 @@ namespace TourManagerLogic.Core.Api
         
         public void Update(ContactModel values)
         {
-            
-            
-            var contact =_dtomToContactMapper.Map<Contact>(values);
-            _unityOfWork.Contacts.Update(contact);
+            var entity =_unityOfWork.Contacts.GetById(values.Id);
+            entity= _dtomToContactMapper.Map<ContactModel, Contact>(values, entity);
+            _unityOfWork.Contacts.Update(entity);
             _unityOfWork.Complete();
         }
         
