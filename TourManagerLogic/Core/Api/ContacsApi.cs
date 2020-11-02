@@ -50,8 +50,9 @@ namespace TourManagerLogic.Core.Api
         
         public void Update(ContactModel values)
         {
-            var contacts =_dtomToContactMapper.Map<Contact>(values);
-            _unityOfWork.Contacts.Update(contacts);
+            var entity =_unityOfWork.Contacts.GetById(values.Id);
+            entity= _dtomToContactMapper.Map<ContactModel, Contact>(values, entity);
+            _unityOfWork.Contacts.Update(entity);
             _unityOfWork.Complete();
         }
         
