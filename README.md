@@ -4,7 +4,7 @@
 
 ## Technologies used
 
--Dotnet core 3.1 
+-Dotnet core 3.1 <br/>
 -Sqlite
 
 ## Test me
