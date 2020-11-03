@@ -8,5 +8,7 @@ namespace TourManager.Data.Core.Domain
         public string HouseNameOrNumber { get; set; }
         public string PostalZip { get; set; }
         public string ExtranInfo { get; set; }
+        public int? ContactId { get; set; }
+        public int? VenueId { get; set; }
     }
 }

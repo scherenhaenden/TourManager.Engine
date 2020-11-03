@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TourManager.Data.Core.Domain
 {
@@ -11,8 +12,12 @@ namespace TourManager.Data.Core.Domain
         }
         
         public string Name { get; set; }
+        
+        
         public virtual Contact Manager { get; set; }
         public string Style { get; set; }
+        
+       
         public virtual ICollection<Contact> Members { get; set; }  
         public virtual Address Address { get; set; }
         

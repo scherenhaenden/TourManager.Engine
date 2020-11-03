@@ -18,5 +18,7 @@ namespace TourManagerLogic.Core.Models
         public int MaxCapacity{ get; set; }
         
         public string Notes { get; set; }
+        
+        //public int? ContactId { get; set; }
     }
 }

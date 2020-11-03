@@ -1,0 +1,81 @@
+using System.Collections.Generic;
+using System.Linq;
+using TourManager.Data.Core.Domain;
+using TourManagerLogic.Core.Models;
+
+namespace TourManagerLogic.Core.Mapping.ModelsToDto
+{
+    public static class ContactsMapper
+    {
+        public static Contact ToEntity(this ContactModel dto, Contact entity)
+        {
+            if (dto != null)
+            {
+                entity.FirstName =  dto.FirstName;
+                entity.LastName =  dto.LastName;
+                entity.TelefonNumbers =  dto.TelefonNumbers.ToEntity(entity.TelefonNumbers).ToList();
+                entity.Emails =  dto.Emails.ToEntity(entity.Emails ).ToList();
+                entity.Addresses =  dto.Addresses.ToEntity(entity.Addresses).ToList();
+                entity.VenueId =  dto.VenueId;
+
+                return entity;
+
+            }
+
+            return null;
+        }
+        public static Contact ToEntity(this ContactModel dto)
+        {
+            if (dto != null)
+            {
+                return new Contact
+                {
+                    FirstName =  dto.FirstName,
+                    LastName =  dto.LastName,
+                    TelefonNumbers =  dto.TelefonNumbers.ToEntity().ToList(),
+                    Emails =  dto.Emails.ToEntity().ToList(),
+                    Addresses =  dto.Addresses.ToEntity().ToList(),
+                    VenueId =  dto.VenueId,
+                };
+            }
+
+            return null;
+        }
+        
+        public static ContactModel ToDto(this Contact entity)
+        {
+            if (entity != null)
+            {
+                return new ContactModel
+                {
+                    Id = entity.Id,
+                    FirstName =  entity.FirstName,
+                    LastName =  entity.LastName,
+                    TelefonNumbers =  entity.TelefonNumbers.ToDto().ToList(),
+                    Emails =  entity.Emails.ToDto().ToList(),
+                    Addresses =  entity.Addresses.ToDto().ToList(),
+                    VenueId =  entity.VenueId,
+                };
+            }
+
+            return null;
+        }
+        
+        public static IEnumerable<Contact> ToEntity(this IEnumerable<ContactModel> dtos, IEnumerable<Contact> entities)
+        {
+            return (from m in dtos 
+                join r in entities on m.Id equals r.Id 
+                select new { m, r }).ToList().Select(x=>x.m.ToEntity(x.r));
+        }
+
+        public static IEnumerable<Contact> ToEntity(this IEnumerable<ContactModel> dto)
+        {
+            return dto.Select(x => x.ToEntity());
+        }
+        
+        public static IEnumerable<ContactModel> ToDto(this IEnumerable<Contact> entity)
+        {
+            return entity.Select(x => x.ToDto());
+        }
+    }
+}

@@ -8,5 +8,8 @@ namespace TourManagerLogic.Core.Models
         public string HouseNameOrNumber { get; set; }
         public string PostalZip { get; set; }
         public string ExtranInfo { get; set; }
+        
+        public int? ContactId { get; set; }
+        public int? VenueId { get; set; }
     }
 }
