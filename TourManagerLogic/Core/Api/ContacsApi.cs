@@ -105,7 +105,9 @@ namespace TourManagerLogic.Core.Api
         
         public void DeleteRange(List<ContactModel> models)
         {
-            var entities = _unityOfWork.Contacts.GetAll().Where(x => models.Any(l => l.Id == x.Id)).ToList();
+            //DO not use "models.any" otherwise Find will try to translate the DTOS but those cannot be translated inside of the unity
+            var listOfIds= models.Select(x => x.Id);
+            var entities = _unityOfWork.Contacts.Find(x => listOfIds.Any(l => l == x.Id)).ToList();
 
 
             entities = models.ToEntity(entities).ToList();
@@ -121,7 +123,6 @@ namespace TourManagerLogic.Core.Api
             {
                 return null;
             }
-            //return _contactToDtoMapper.Map<ContactModel>(contact);
             return contact.ToDto();
         }
         
@@ -136,8 +137,6 @@ namespace TourManagerLogic.Core.Api
             var result =  _unityOfWork.Emails.GetAll()?.Where(x => x.ContactId == contact.Id);
 
             contact.Emails = result.Where(x => x.ContactId == contact.Id).ToList();
-            
-            //return _contactToDtoMapper.Map<ContactModel>(contact);
             return contact.ToDto();
         }
         
@@ -152,8 +151,6 @@ namespace TourManagerLogic.Core.Api
             var result =  _unityOfWork.TelefonNumbers.GetAll()?.Where(x => x.ContactId == contact.Id);
 
             contact.TelefonNumbers = result.Where(x => x.ContactId == contact.Id).ToList();
-            
-            //return _contactToDtoMapper.Map<ContactModel>(contact);
             return contact.ToDto();
         }
         
@@ -168,8 +165,6 @@ namespace TourManagerLogic.Core.Api
             var result =  _unityOfWork.Address.GetAll()?.Where(x => x.ContactId == contact.Id);
 
             contact.Addresses = result.Where(x => x.ContactId == contact.Id).ToList();
-            
-            //return _contactToDtoMapper.Map<ContactModel>(contact);
             return contact.ToDto();
         }
         
@@ -183,8 +178,6 @@ namespace TourManagerLogic.Core.Api
             {
                 return null;
             }
-            //var contactss =_contactToDtoMapper.Map<List<ContactModel>>(contacts);
-            //return contactss;
             return contacts.ToDto().ToList();
         }
     }
