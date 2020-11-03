@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TourManager.Data.Core.Domain;
@@ -5,13 +6,16 @@ using TourManagerLogic.Core.Models;
 
 namespace TourManagerLogic.Core.Mapping.ModelsToDto
 {
-    public class BaseMapper
+    static class BaseMapper
     {
-        public static IEnumerable<TEntity> ToEntity(IEnumerable<BaseModel> dtos, IEnumerable<TEntity> entities)
+        public static IEnumerable<object> JoinLists(IEnumerable<BaseModel> dtos, IEnumerable<TEntity> entities)
         {
-            return (IEnumerable<TEntity>)(from m in dtos
-                join r in entities on m.Id equals r.Id
-                select new {m, r}).ToList(); //.Select(x=>x.m.ToEntity(x.r));
+            var joinedLists= (from m in dtos 
+                join r in entities on m.Id equals r.Id into merged
+                from r in merged.DefaultIfEmpty()
+                select new { m , r });//.Select(x=>x.m.ToEntity(x.r) {m,r});
+
+            return joinedLists;
         }
     }
 }
