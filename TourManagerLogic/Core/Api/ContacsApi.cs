@@ -105,7 +105,7 @@ namespace TourManagerLogic.Core.Api
         
         public void DeleteRange(List<ContactModel> models)
         {
-            var entities = _unityOfWork.Contacts.Find(x => models.Any(l => l.Id == x.Id)).ToList();
+            var entities = _unityOfWork.Contacts.GetAll().Where(x => models.Any(l => l.Id == x.Id)).ToList();
 
 
             entities = models.ToEntity(entities).ToList();
