@@ -158,9 +158,9 @@ namespace TourManagerEngineTests.Core.Api
             Assert.AreEqual(updatedResult.FirstName,  _contactModel.FirstName);
 
 
-            var resultEmail =updatedResult.Emails.Where(x => x.EmailAddress == email.EmailAddress).FirstOrDefault();
-            var resultTelefon =updatedResult.TelefonNumbers.Where(x => x.Number == telefon.Number).FirstOrDefault();
-            var resultAddress =updatedResult.Addresses.Where(x => x.City == address.City).FirstOrDefault();
+            var resultEmail =updatedResult.Emails.FirstOrDefault(x => x.EmailAddress == email.EmailAddress);
+            var resultTelefon =updatedResult.TelefonNumbers.FirstOrDefault(x => x.Number == telefon.Number);
+            var resultAddress =updatedResult.Addresses.FirstOrDefault(x => x.City == address.City);
 
             Assert.NotNull(resultEmail);
             Assert.NotNull(resultTelefon);
