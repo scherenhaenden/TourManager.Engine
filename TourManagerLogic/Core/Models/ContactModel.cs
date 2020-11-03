@@ -8,6 +8,8 @@ namespace TourManagerLogic.Core.Models
         public string FirstName { get; set; } 
         
         public string LastName { get; set; }
+        
+        public  int? VenueId { get; set; }
 
         public virtual ICollection<TelefonNumberModel> TelefonNumbers { get; set; } = new Collection<TelefonNumberModel>();
         

@@ -1,3 +1,4 @@
+using System;
 using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
 using TourManager.Data.Core.Configuration;
@@ -39,8 +40,8 @@ namespace TourManagerEngineTests.Core.Api
             var contactsModel = new ContactModel();
             contactsModel.FirstName = "Eddie";
             contactsModel.LastName = "FrankenStein";
-            contactsModel.TelefonNumbers.Add(new TelefonNumberModel() {Number = "+555 3343" });
-            contactsModel.Emails.Add(new EmailModel() {EmailAddress = "amazing@gmail.com"});
+            contactsModel.TelefonNumbers.Add(new TelefonNumberModel() {Number = "+555 Venue" });
+            contactsModel.Emails.Add(new EmailModel() {EmailAddress = "venuewstest@gmail.com"});
             contactsModel.Addresses.Add(address);
             
             
@@ -48,20 +49,21 @@ namespace TourManagerEngineTests.Core.Api
 
             venueModel.Name = "LaTaguarita";
             EmailModel emailModel = new EmailModel();
-            emailModel.EmailAddress = "taguara@taguara.net";
+            emailModel.EmailAddress = "venuestest@taguara.net";
             
             venueModel.Emails.Add(emailModel);
-            venueModel.TelefonNumbers.Add(new TelefonNumberModel() {Number = "+225 334323" });
+            venueModel.TelefonNumbers.Add(new TelefonNumberModel() {Number = "+225 Venue" });
             venueModel.Contact.Add(contactsModel);
 
             venueModel.MaxCapacity = 1500;
             venueModel.Notes ="many notes";
+         
             venuesApi.Add(venueModel);
-                
-                
-            
-            
-            
+         
+
+
+
+
             var result =venuesApi.Find(x => x.Name == venueModel.Name);
             Assert.NotNull(result);
         }

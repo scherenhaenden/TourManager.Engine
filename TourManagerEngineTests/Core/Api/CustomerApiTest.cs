@@ -1,3 +1,4 @@
+using System.Linq;
 using AutoMapper;
 using AutoMapper.EntityFrameworkCore;
 using AutoMapper.EquivalencyExpression;
@@ -17,8 +18,7 @@ namespace TourManagerEngineTests.Core.Api
     {
 
         private IUnityOfWork _unityOfWork;
-        private ContactModel _contactModel;
-        private ContacsApi _contacsApi;
+        private ContactModel _contactModel;        
 
         [SetUp]
         public void Setup()
@@ -31,7 +31,7 @@ namespace TourManagerEngineTests.Core.Api
             options.UseSqlite($"Data Source=./TourManager.db");
             TourManagerContext tourManagerContext = new TourManagerContext(options.Options);
             _unityOfWork = new UnityOfWork(tourManagerContext);
-            _contacsApi = new ContacsApi(_unityOfWork);            
+            //_contacsApi = new ContacsApi(_unityOfWork);            
         }
 
         [Test]
@@ -47,13 +47,13 @@ namespace TourManagerEngineTests.Core.Api
                 PostalZip = "1231312",
                 HouseNameOrNumber = "199A"
             };
-            var customersApi = _contacsApi;//new ContacsApi(_unityOfWork);
+            var customersApi = new ContacsApi(_unityOfWork);
 
             _contactModel = new ContactModel();
-            _contactModel.FirstName = "Eddie";
+            _contactModel.FirstName = "Eddie test";
             _contactModel.LastName = "FrankenStein";
-            _contactModel.TelefonNumbers.Add(new TelefonNumberModel() {Number = "+555 3343" });
-            _contactModel.Emails.Add(new EmailModel() {EmailAddress = "amazing@gmail.com"});
+            _contactModel.TelefonNumbers.Add(new TelefonNumberModel() {Number = "+555 Contact" });
+            _contactModel.Emails.Add(new EmailModel() {EmailAddress = "contacttest@gmail.com"});
             _contactModel.Addresses.Add(address);
             customersApi.Add(_contactModel);
             var result =customersApi.Find(x => x.FirstName == _contactModel.FirstName && x.LastName == _contactModel.LastName);
@@ -63,12 +63,45 @@ namespace TourManagerEngineTests.Core.Api
         [Test]
         public void Test2SelectById()
         {
-            var customersApi = _contacsApi;//new ContacsApi(_unityOfWork);
+            var customersApi = new ContacsApi(_unityOfWork);
 
-            var result =customersApi.GetAllPagination()[0];
+            var result = customersApi.Find(x => x.FirstName == "Eddie test").FirstOrDefault();
             var id = result.Id;
             var selectedOne = customersApi.SelectBy(result.Id);
             Assert.AreEqual(id, selectedOne.Id);
+        }
+        
+        [Test]
+        public void Test2_1SelectByIdLoadEmails()
+        {
+            var customersApi =new ContacsApi(_unityOfWork);
+
+            var result = customersApi.Find(x => x.FirstName == "Eddie test").FirstOrDefault();
+            var id = result.Id;
+            var selectedOne = customersApi.SelectByLoadEmails(result.Id);
+            Assert.AreEqual(_contactModel.Emails.ToList()[0].EmailAddress, selectedOne.Emails.ToList()[0].EmailAddress);
+        }
+        
+        [Test]
+        public void Test2_2SelectByIdLoadTelefonNumbers()
+        {
+            var customersApi =new ContacsApi(_unityOfWork);
+
+            var result = customersApi.Find(x => x.FirstName == "Eddie test").FirstOrDefault();
+            var id = result.Id;
+            var selectedOne = customersApi.SelectByLoadTelefonNumbers(result.Id);
+            Assert.AreEqual(_contactModel.TelefonNumbers.ToList()[0].Number, selectedOne.TelefonNumbers.ToList()[0].Number);
+        }
+        
+        [Test]
+        public void Test2_3SelectByIdLoadAddresses()
+        {
+            var customersApi =new ContacsApi(_unityOfWork);
+
+            var result = customersApi.Find(x => x.FirstName == "Eddie test").FirstOrDefault();
+            var id = result.Id;
+            var selectedOne = customersApi.SelectByLoadAddresses(result.Id);
+            Assert.AreEqual(_contactModel.Addresses.ToList()[0].City, selectedOne.Addresses.ToList()[0].City);
         }
         
         
@@ -76,17 +109,17 @@ namespace TourManagerEngineTests.Core.Api
         public void Test3Find()
         {
 
-            var customersApi = _contacsApi;//new ContacsApi(_unityOfWork);
+            var customersApi =new ContacsApi(_unityOfWork);
 
             var result =customersApi.Find(x => x.FirstName == _contactModel.FirstName && x.LastName == _contactModel.LastName);
             Assert.Greater(result.Count, 0);
         }
-        
+
         [Test]
         public void Test3_1FindWithDependenvies()
         {
 
-            var customersApi = _contacsApi;//new ContacsApi(_unityOfWork);
+            var customersApi =new ContacsApi(_unityOfWork);
             var result =customersApi.Find(x => x.FirstName == _contactModel.FirstName && x.LastName == _contactModel.LastName);
             Assert.Greater(result.Count, 0);
         }
@@ -94,7 +127,7 @@ namespace TourManagerEngineTests.Core.Api
         [Test]
         public void Test4_1Update()
         {
-            var customersApi = _contacsApi;//new ContacsApi(_unityOfWork);
+            var customersApi =new ContacsApi(_unityOfWork);
             var result =customersApi.Find(x => x.FirstName == _contactModel.FirstName && x.LastName == _contactModel.LastName)[0];
 
             if (result != null)
@@ -112,7 +145,7 @@ namespace TourManagerEngineTests.Core.Api
         [Test]
         public void Test5Delete()
         {
-            var customersApi = _contacsApi;//new ContacsApi(_unityOfWork);
+            var customersApi =new ContacsApi(_unityOfWork);
 
             var result =customersApi.Find(x => x.FirstName == _contactModel.FirstName && x.LastName == _contactModel.LastName);
 
@@ -123,6 +156,24 @@ namespace TourManagerEngineTests.Core.Api
             
             result =customersApi.Find(x => x.FirstName == _contactModel.FirstName && x.LastName == _contactModel.LastName);
            
+            Assert.AreEqual(result.Count, 0);
+        }
+        
+        
+        [Test]
+        public void Test5DeleteAll()
+        {
+            var customersApi =new ContacsApi(_unityOfWork);
+
+            var result = customersApi.GetAllPagination();
+            
+          
+            customersApi.DeleteRange(result);
+            
+            result = customersApi.GetAllPagination();
+           
+            
+            
             Assert.AreEqual(result.Count, 0);
         }
     }

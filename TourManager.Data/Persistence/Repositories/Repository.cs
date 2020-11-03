@@ -40,7 +40,14 @@ namespace TourManager.Data.Persistence.Repositories
 
         public void Add(TEntity entity)
         {
+            entity.Inserted = DateTime.Now;
+            entity.LastUpdate = DateTime.Now;
+            //entity.Inserted = DateTime.Now;
+            //entity.LastUpdate = DateTime.Now;
+            // master
+            //_context.Entry(entity).State = EntityState.Added;
             _context.Set<TEntity>().Add(entity);
+            //_context.SaveChanges();
         }
 
         public int AddWithIdentity(TEntity entity)
@@ -55,7 +62,12 @@ namespace TourManager.Data.Persistence.Repositories
         }
 
         public void Update(TEntity entity)
-        {     
+        {   
+            entity.LastUpdate = DateTime.Now;
+            // master
+            _context.Entry(entity).State = EntityState.Added;
+            //_context.Set<TEntity>().Add(entity);
+            //_context.SaveChanges();
             _context.Set<TEntity>().Update(entity);
         }
 

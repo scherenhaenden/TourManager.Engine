@@ -76,8 +76,8 @@ namespace TourManager.Data.Migrations
                     LastUpdate = table.Column<DateTime>(nullable: false),
                     FirstName = table.Column<string>(nullable: true),
                     LastName = table.Column<string>(nullable: true),
-                    BandId = table.Column<int>(nullable: true),
-                    VenueId = table.Column<int>(nullable: true)
+                    VenueId = table.Column<int>(nullable: true),
+                    BandId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -175,9 +175,9 @@ namespace TourManager.Data.Migrations
                     Inserted = table.Column<DateTime>(nullable: false),
                     LastUpdate = table.Column<DateTime>(nullable: false),
                     EmailAddress = table.Column<string>(nullable: true),
-                    BandId = table.Column<int>(nullable: true),
                     ContactId = table.Column<int>(nullable: true),
-                    VenueId = table.Column<int>(nullable: true)
+                    VenueId = table.Column<int>(nullable: true),
+                    BandId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {

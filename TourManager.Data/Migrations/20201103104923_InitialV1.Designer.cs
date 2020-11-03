@@ -9,7 +9,7 @@ using TourManager.Data.Core.Configuration;
 namespace TourManager.Data.Migrations
 {
     [DbContext(typeof(TourManagerContext))]
-    [Migration("20201030122516_InitialV1")]
+    [Migration("20201103104923_InitialV1")]
     partial class InitialV1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
