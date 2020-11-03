@@ -136,10 +136,35 @@ namespace TourManagerEngineTests.Core.Api
                 _contactModel.FirstName = "Eddie Gerald";
             }
             
+            var address = new AddressModel
+            {
+                City = "Frankfurt",
+                Country = "Germany",
+                Street = "somestrees",
+                ExtranInfo = "behind a bar",
+                PostalZip = "1231312",
+                HouseNameOrNumber = "199A"
+            };
+
+            var email = new EmailModel() {EmailAddress = "contact-secondmail@gmail.com"};
+            var telefon = new TelefonNumberModel() {Number = "+555 Contact + 2"};
+            
+            _contactModel.Emails.Add(email);
+            _contactModel.TelefonNumbers.Add(telefon);
+            _contactModel.Addresses.Add(address);
             customersApi.Update(_contactModel);
             
             var updatedResult =customersApi.SelectBy(_contactModel.Id);
             Assert.AreEqual(updatedResult.FirstName,  _contactModel.FirstName);
+
+
+            var resultEmail =updatedResult.Emails.Where(x => x.EmailAddress == email.EmailAddress).FirstOrDefault();
+            var resultTelefon =updatedResult.TelefonNumbers.Where(x => x.Number == telefon.Number).FirstOrDefault();
+            var resultAddress =updatedResult.Addresses.Where(x => x.City == address.City).FirstOrDefault();
+
+            Assert.NotNull(resultEmail);
+            Assert.NotNull(resultTelefon);
+            Assert.NotNull(resultAddress);
         }
         
         [Test]
