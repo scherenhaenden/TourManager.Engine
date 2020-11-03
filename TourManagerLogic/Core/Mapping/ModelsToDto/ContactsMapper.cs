@@ -63,9 +63,16 @@ namespace TourManagerLogic.Core.Mapping.ModelsToDto
         
         public static IEnumerable<Contact> ToEntity(this IEnumerable<ContactModel> dtos, IEnumerable<Contact> entities)
         {
-            return (from m in dtos 
-                join r in entities on m.Id equals r.Id 
-                select new { m, r }).ToList().Select(x=>x.m.ToEntity(x.r));
+            var joinedLists= (from m in dtos 
+                join r in entities on m.Id equals r.Id into merged
+                from r in merged.DefaultIfEmpty()
+                select new { m , r });
+            
+            var update = joinedLists.Where(x => x.r != null).Select(x => x.m.ToEntity(x.r));
+            var add = joinedLists.Where(x => x.r == null).Select(x => x.m.ToEntity());
+            var rEmails= update.ToList();
+            rEmails.AddRange(add);
+            return rEmails;
         }
 
         public static IEnumerable<Contact> ToEntity(this IEnumerable<ContactModel> dto)

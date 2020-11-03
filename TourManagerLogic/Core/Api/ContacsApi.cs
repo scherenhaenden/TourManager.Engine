@@ -67,28 +67,8 @@ namespace TourManagerLogic.Core.Api
         
         public void Update(ContactModel values)
         {
-            
-            
-            /*var configDtoToModel = new MapperConfiguration(cfg => {
-                cfg.AddCollectionMappers();
-                
-                cfg.CreateMap<ContactModel, Contact>()
-                    .ForMember(dest => dest.Addresses, opt => opt.UseDestinationValue())
-                    .ForMember(dest => dest.Emails, opt => opt.UseDestinationValue())
-                    .ForMember(dest => dest.TelefonNumbers, opt => opt.UseDestinationValue())
-                    
-                    ;
-                cfg.CreateMap<ICollection<AddressModel>, ICollection<Address>>();
-                cfg.CreateMap<ICollection<EmailModel>, ICollection<Email>>();
-                cfg.CreateMap<ICollection<TelefonNumberModel>, ICollection<TelefonNumber>>();
-                
-            });*/
-            
-            
-            
-            
             var entity =_unityOfWork.Contacts.GetById(values.Id);
-            //entity= configDtoToModel.CreateMapper().Map<ContactModel, Contact>(values, entity);
+            
 
             entity = values.ToEntity(entity);
             
