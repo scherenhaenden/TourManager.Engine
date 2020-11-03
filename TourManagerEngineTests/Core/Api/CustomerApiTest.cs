@@ -18,8 +18,7 @@ namespace TourManagerEngineTests.Core.Api
     {
 
         private IUnityOfWork _unityOfWork;
-        private ContactModel _contactModel;
-        //private ContacsApi _contacsApi;
+        private ContactModel _contactModel;        
 
         [SetUp]
         public void Setup()
@@ -114,6 +113,24 @@ namespace TourManagerEngineTests.Core.Api
 
             var result =customersApi.Find(x => x.FirstName == _contactModel.FirstName && x.LastName == _contactModel.LastName);
             Assert.Greater(result.Count, 0);
+        }
+
+        [Test]
+        public void Test4_1Update()
+        {
+            var customersApi = _contacsApi;//new ContacsApi(_unityOfWork);
+            var result =customersApi.Find(x => x.FirstName == _contactModel.FirstName && x.LastName == _contactModel.LastName)[0];
+
+            if (result != null)
+            {
+                _contactModel = result;
+                _contactModel.FirstName = "Eddie Gerald";
+            }
+            
+            customersApi.Update(_contactModel);
+            
+            var updatedResult =customersApi.SelectBy(_contactModel.Id);
+            Assert.AreEqual(updatedResult.FirstName,  _contactModel.FirstName);
         }
         
         [Test]
