@@ -116,24 +116,6 @@ namespace TourManagerEngineTests.Core.Api
         }
 
         [Test]
-        public void Test4_1Update()
-        {
-            var customersApi = _contacsApi;//new ContacsApi(_unityOfWork);
-            var result =customersApi.Find(x => x.FirstName == _contactModel.FirstName && x.LastName == _contactModel.LastName)[0];
-
-            if (result != null)
-            {
-                _contactModel = result;
-                _contactModel.FirstName = "Eddie Gerald";
-            }
-            
-            customersApi.Update(_contactModel);
-            
-            var updatedResult =customersApi.SelectBy(_contactModel.Id);
-            Assert.AreEqual(updatedResult.FirstName,  _contactModel.FirstName);
-        }
-        
-        [Test]
         public void Test3_1FindWithDependenvies()
         {
 
