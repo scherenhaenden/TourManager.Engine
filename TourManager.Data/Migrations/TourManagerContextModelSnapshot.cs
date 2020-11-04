@@ -127,8 +127,6 @@ namespace TourManager.Data.Migrations
 
                     b.HasIndex("BandId");
 
-                    b.HasIndex("VenueId");
-
                     b.ToTable("Contacts");
                 });
 
@@ -164,7 +162,7 @@ namespace TourManager.Data.Migrations
 
                     b.HasIndex("VenueId");
 
-                    b.ToTable("Email");
+                    b.ToTable("Emails");
                 });
 
             modelBuilder.Entity("TourManager.Data.Core.Domain.TelefonNumber", b =>
@@ -194,7 +192,7 @@ namespace TourManager.Data.Migrations
 
                     b.HasIndex("VenueId");
 
-                    b.ToTable("TelefonNumber");
+                    b.ToTable("TelefonNumbers");
                 });
 
             modelBuilder.Entity("TourManager.Data.Core.Domain.Tour", b =>
@@ -284,6 +282,33 @@ namespace TourManager.Data.Migrations
                     b.ToTable("Venues");
                 });
 
+            modelBuilder.Entity("TourManager.Data.Core.Domain.VenuesToContacts", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("ContactId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("Inserted")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("LastUpdate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("VenueId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ContactId");
+
+                    b.HasIndex("VenueId");
+
+                    b.ToTable("VenuesToContacts");
+                });
+
             modelBuilder.Entity("TourManager.Data.Core.Domain.Address", b =>
                 {
                     b.HasOne("TourManager.Data.Core.Domain.Contact", null)
@@ -315,10 +340,6 @@ namespace TourManager.Data.Migrations
                     b.HasOne("TourManager.Data.Core.Domain.Band", null)
                         .WithMany("Members")
                         .HasForeignKey("BandId");
-
-                    b.HasOne("TourManager.Data.Core.Domain.Venue", null)
-                        .WithMany("Contact")
-                        .HasForeignKey("VenueId");
                 });
 
             modelBuilder.Entity("TourManager.Data.Core.Domain.Email", b =>
@@ -360,6 +381,21 @@ namespace TourManager.Data.Migrations
                     b.HasOne("TourManager.Data.Core.Domain.Venue", "Venue")
                         .WithMany()
                         .HasForeignKey("VenueId");
+                });
+
+            modelBuilder.Entity("TourManager.Data.Core.Domain.VenuesToContacts", b =>
+                {
+                    b.HasOne("TourManager.Data.Core.Domain.Contact", "Contact")
+                        .WithMany("VenuesToContacts")
+                        .HasForeignKey("ContactId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TourManager.Data.Core.Domain.Venue", "Venue")
+                        .WithMany("VenuesToContacts")
+                        .HasForeignKey("VenueId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
