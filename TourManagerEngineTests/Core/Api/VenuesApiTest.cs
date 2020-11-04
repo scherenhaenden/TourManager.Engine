@@ -44,6 +44,15 @@ namespace TourManagerEngineTests.Core.Api
             contactsModel.Emails.Add(new EmailModel() {EmailAddress = "venuewstest@gmail.com"});
             contactsModel.Addresses.Add(address);
             
+            var contactsModel2 = new ContactModel();
+            contactsModel2.FirstName = "pofetti";
+            contactsModel2.LastName = "ninuu";
+            contactsModel2.TelefonNumbers.Add(new TelefonNumberModel() {Number = "+222 Venue" });
+            contactsModel2.Emails.Add(new EmailModel() {EmailAddress = "venuewstest@venue.com"});
+            contactsModel2.Addresses.Add(address);
+            
+            
+            
             
             VenueModel venueModel = new VenueModel();
 
@@ -59,6 +68,8 @@ namespace TourManagerEngineTests.Core.Api
             venueModel.Notes ="many notes";
          
             venuesApi.Add(venueModel);
+            
+            
          
 
 
