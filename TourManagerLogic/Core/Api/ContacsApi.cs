@@ -106,16 +106,17 @@ namespace TourManagerLogic.Core.Api
             return contact.ToDto();
         }
         
-        public ContactModel SelectByLoadEmails(int id)
+        public ContactModel SelectEmailsForContactModel(int id)
         {
             var contact = (Contact)_unityOfWork.Contacts.GetById(id);
             if (contact == null)
             {
                 return null;
             }
-            
-            var result =  _unityOfWork.Emails.GetAll()?.Where(x => x.ContactId == contact.Id);
 
+            var emailApi = new EmailApi(_unityOfWork);
+            var result =  _unityOfWork.Emails.Find(x => x.ContactId == contact.Id);
+            //var preResult =emailApi.Find(x => x.ContactId == contact.Id);
             contact.Emails = result.Where(x => x.ContactId == contact.Id).ToList();
             return contact.ToDto();
         }
