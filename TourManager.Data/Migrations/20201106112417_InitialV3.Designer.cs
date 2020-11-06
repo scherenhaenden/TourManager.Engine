@@ -9,8 +9,8 @@ using TourManager.Data.Core.Configuration;
 namespace TourManager.Data.Migrations
 {
     [DbContext(typeof(TourManagerContext))]
-    [Migration("20201103104923_InitialV1")]
-    partial class InitialV1
+    [Migration("20201106112417_InitialV3")]
+    partial class InitialV3
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -87,16 +87,11 @@ namespace TourManager.Data.Migrations
                     b.Property<string>("Style")
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("TourId")
-                        .HasColumnType("INTEGER");
-
                     b.HasKey("Id");
 
                     b.HasIndex("AddressId");
 
                     b.HasIndex("ManagerId");
-
-                    b.HasIndex("TourId");
 
                     b.ToTable("Bands");
                 });
@@ -128,8 +123,6 @@ namespace TourManager.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("BandId");
-
-                    b.HasIndex("VenueId");
 
                     b.ToTable("Contacts");
                 });
@@ -166,7 +159,7 @@ namespace TourManager.Data.Migrations
 
                     b.HasIndex("VenueId");
 
-                    b.ToTable("Email");
+                    b.ToTable("Emails");
                 });
 
             modelBuilder.Entity("TourManager.Data.Core.Domain.TelefonNumber", b =>
@@ -196,7 +189,7 @@ namespace TourManager.Data.Migrations
 
                     b.HasIndex("VenueId");
 
-                    b.ToTable("TelefonNumber");
+                    b.ToTable("TelefonNumbers");
                 });
 
             modelBuilder.Entity("TourManager.Data.Core.Domain.Tour", b =>
@@ -286,6 +279,33 @@ namespace TourManager.Data.Migrations
                     b.ToTable("Venues");
                 });
 
+            modelBuilder.Entity("TourManager.Data.Core.Domain.VenuesToContacts", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("ContactId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("Inserted")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("LastUpdate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("VenueId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ContactId");
+
+                    b.HasIndex("VenueId");
+
+                    b.ToTable("VenuesToContacts");
+                });
+
             modelBuilder.Entity("TourManager.Data.Core.Domain.Address", b =>
                 {
                     b.HasOne("TourManager.Data.Core.Domain.Contact", null)
@@ -306,10 +326,6 @@ namespace TourManager.Data.Migrations
                     b.HasOne("TourManager.Data.Core.Domain.Contact", "Manager")
                         .WithMany()
                         .HasForeignKey("ManagerId");
-
-                    b.HasOne("TourManager.Data.Core.Domain.Tour", null)
-                        .WithMany("Bands")
-                        .HasForeignKey("TourId");
                 });
 
             modelBuilder.Entity("TourManager.Data.Core.Domain.Contact", b =>
@@ -317,10 +333,6 @@ namespace TourManager.Data.Migrations
                     b.HasOne("TourManager.Data.Core.Domain.Band", null)
                         .WithMany("Members")
                         .HasForeignKey("BandId");
-
-                    b.HasOne("TourManager.Data.Core.Domain.Venue", null)
-                        .WithMany("Contact")
-                        .HasForeignKey("VenueId");
                 });
 
             modelBuilder.Entity("TourManager.Data.Core.Domain.Email", b =>
@@ -362,6 +374,21 @@ namespace TourManager.Data.Migrations
                     b.HasOne("TourManager.Data.Core.Domain.Venue", "Venue")
                         .WithMany()
                         .HasForeignKey("VenueId");
+                });
+
+            modelBuilder.Entity("TourManager.Data.Core.Domain.VenuesToContacts", b =>
+                {
+                    b.HasOne("TourManager.Data.Core.Domain.Contact", "Contact")
+                        .WithMany("VenuesToContacts")
+                        .HasForeignKey("ContactId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TourManager.Data.Core.Domain.Venue", "Venue")
+                        .WithMany("VenuesToContacts")
+                        .HasForeignKey("VenueId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

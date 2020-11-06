@@ -10,6 +10,7 @@ namespace TourManager.Data.Core.Domain
             Addresses = new HashSet<Address>();
             TelefonNumbers = new HashSet<TelefonNumber>();
             Emails = new HashSet<Email>();
+            VenuesToContacts = new HashSet<VenuesToContacts>();
         }
         
         public string Name { get; set; }
@@ -17,8 +18,8 @@ namespace TourManager.Data.Core.Domain
         
         public virtual ICollection<Email> Emails { get; set; }
         public virtual ICollection<TelefonNumber> TelefonNumbers { get; set; }
-        
-        public virtual ICollection<Contact> Contact { get; set; }
+
+        public virtual ICollection<VenuesToContacts> VenuesToContacts { get; set; }
         
         public DateTime LoadIn { get; set; }
         

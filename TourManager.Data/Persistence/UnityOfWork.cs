@@ -23,6 +23,8 @@ namespace TourManager.Data.Persistence
             
             Emails = new Repository<Email>(_tourManagerContext);
             TelefonNumbers = new Repository<TelefonNumber>(_tourManagerContext);
+            
+            VenuesToContacts = new VenuesContactsRepository(_tourManagerContext);
         }
 
         public void Dispose()
@@ -36,6 +38,7 @@ namespace TourManager.Data.Persistence
         }
 
         public IRepository<Contact> Contacts { get; }
+        
         public IRepository<Address> Address { get; }
 
         public IRepository<Band> Bands { get; }
@@ -45,8 +48,12 @@ namespace TourManager.Data.Persistence
         public IRepository<Tour> Tours { get; }
 
         public IRepository<Venue> Venues { get; }
+
         public IRepository<Email> Emails { get; }
+
         public IRepository<TelefonNumber> TelefonNumbers { get; }
+        
+        public IVenuesContactsRepository VenuesToContacts { get; }
 
         public int Complete()
         {
