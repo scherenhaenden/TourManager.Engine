@@ -33,6 +33,20 @@ namespace TourManagerEngineTests.Core.Api
             _unityOfWork = new UnityOfWork(tourManagerContext);
             //_contacsApi = new ContacsApi(_unityOfWork);            
         }
+        
+        
+        [Test]
+        public void Test0_0DeleteEverything()
+        {
+            var contacsApi = new ContacsApi(_unityOfWork);
+
+            var idsTobeDeleted = contacsApi.GetAllIds();
+
+            foreach (var id in idsTobeDeleted)
+            {
+                contacsApi.Delete(id);
+            }
+        }
 
         [Test]
         public void Test1Add()
@@ -193,7 +207,7 @@ namespace TourManagerEngineTests.Core.Api
             var result = customersApi.GetAllPagination();
             
           
-            customersApi.DeleteRange(result);
+            customersApi.RemoveRange(result);
             
             result = customersApi.GetAllPagination();
            

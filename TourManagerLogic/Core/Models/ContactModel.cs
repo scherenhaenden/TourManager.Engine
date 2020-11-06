@@ -16,5 +16,7 @@ namespace TourManagerLogic.Core.Models
         public virtual ICollection<EmailModel> Emails { get; set; } = new Collection<EmailModel>();
         
         public virtual ICollection<AddressModel> Addresses { get; set; } = new Collection<AddressModel>();
+        
+        public virtual ICollection<VenuesToContactsModel> VenuesToContacts { get; set; }= new List<VenuesToContactsModel>();
     }
 }
