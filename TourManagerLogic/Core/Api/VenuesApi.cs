@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using AutoMapper;
 using TourManager.Data.Core.Domain;
 using TourManager.Data.Persistence;
+using TourManagerLogic.Core.Mapping.ModelsToDto;
 using TourManagerLogic.Core.Models;
 
 namespace TourManagerLogic.Core.Api
@@ -38,9 +40,9 @@ namespace TourManagerLogic.Core.Api
         }
         
         public void Add(VenueModel values)
-        {   
-            var contacts =_dtomToContactMapper.Map<Venue>(values);
-            _unityOfWork.Venues.Add(contacts);
+        {
+            var result =values.ToEntity();
+            _unityOfWork.Venues.Add(result);
             _unityOfWork.Complete();
         }
         
@@ -75,14 +77,13 @@ namespace TourManagerLogic.Core.Api
             {
                 return null;
             }
-            var contactss =_contactToDtoMapper.Map<List<VenueModel>>(contacts);
-            return contactss;
+            return contacts.ToDto().ToList();
         }
         
         public List<VenueModel> GetAllPagination()
         {
             var result =_unityOfWork.Venues.GetAll();
-            return _contactToDtoMapper.Map<List<VenueModel>>(result);
+            return result.ToDto().ToList();
         }
 
     }
