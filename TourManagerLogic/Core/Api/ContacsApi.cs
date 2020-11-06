@@ -47,46 +47,50 @@ namespace TourManagerLogic.Core.Api
         {
             var entity = _unityOfWork.Contacts.SingleOrDefault(x => x.Id == id);
 
-
-            foreach (var VARIABLE in entity.Addresses)
-            {
-                try
-                {
-                    new AddressApi(_unityOfWork).Delete(entity.Id);
-                }
-                catch (Exception)
-                {
-                }
-            }
+            var addressesIds=entity.Addresses.Select(x => x.Id).ToList();
+            var emailsIds=entity.Emails.Select(x => x.Id).ToList();
+            var telefonumbersIds=entity.TelefonNumbers.Select(x => x.Id).ToList();
+            var venuesToContacsIds =entity.VenuesToContacts.Select(x => x.Id).ToList();
             
-            foreach (var VARIABLE in entity.Emails)
+            foreach (var idsd in addressesIds)
             {
                 try
                 {
-                    new EmailApi(_unityOfWork).Delete(entity.Id);
+                    new AddressApi(_unityOfWork).Delete(idsd);
                 }
                 catch (Exception)
                 {
                 }
             }
 
-            foreach (var VARIABLE in entity.TelefonNumbers)
+            foreach (var idsd in emailsIds)
             {
                 try
                 {
-                    new TelefonNumberApi(_unityOfWork).Delete(entity.Id);
+                    new EmailApi(_unityOfWork).Delete(idsd);
+                }
+                catch (Exception)
+                {
+                }
+            }
+
+            foreach (var idsds in telefonumbersIds)
+            {
+                try
+                {
+                    new TelefonNumberApi(_unityOfWork).Delete(idsds);
                 }
                 catch (Exception)
                 {
                 }
                 
             }
-            
-            foreach (var VARIABLE in entity.VenuesToContacts)
+
+            foreach (var idsd in venuesToContacsIds)
             {
                 try
                 {
-                    new VenuesContactApi(_unityOfWork).Delete(entity.Id);
+                    new VenuesContactApi(_unityOfWork).Delete(idsd);
                 }
                 catch (Exception)
                 {
