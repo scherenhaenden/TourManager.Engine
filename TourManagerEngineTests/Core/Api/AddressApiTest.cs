@@ -90,6 +90,5 @@ namespace TourManagerEngineTests.Core.Api
         {
             Test0_0DeleteEverything();
         }
-
     }
 }

@@ -9,6 +9,7 @@ using TourManagerLogic.Core.Models;
 namespace TourManagerEngineTests.Core.Api
 {
     public class VenuesContactsApiTest
+
     {
         private IUnityOfWork _unityOfWork;
         
@@ -95,6 +96,7 @@ namespace TourManagerEngineTests.Core.Api
             venuesToContactsModel2.Contact = contactsModel;
 
             venuesContactApi.Add(venuesToContactsModel);
+          
             venuesContactApi.Add(venuesToContactsModel2);
 
             Assert.NotNull("result");
@@ -110,6 +112,7 @@ namespace TourManagerEngineTests.Core.Api
             var result =venuesContactApi.Find(x => x.Contact.FirstName == firstName &&  x.Venue.Name == venueName);
             
             Assert.Greater(result.Count, 0);
+
         }
 
     }

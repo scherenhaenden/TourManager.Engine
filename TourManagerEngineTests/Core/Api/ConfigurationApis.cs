@@ -15,8 +15,7 @@ namespace TourManagerEngineTests.Core.Api
             DbContextOptions options2 = new DbContextOptions<TourManagerContext>();
             options.UseSqlite($"Data Source=./TourManager.db");
             TourManagerContext tourManagerContext = new TourManagerContext(options.Options);
-            return new UnityOfWork(tourManagerContext);
-        
+            return new UnityOfWork(tourManagerContext);        
         }
     }
 }

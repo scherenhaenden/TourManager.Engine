@@ -12,13 +12,10 @@ namespace TourManager.Data.Persistence.Repositories
     public class VenuesContactsRepository: Repository<VenuesToContacts>, IVenuesContactsRepository
     {
         private readonly TourManagerContext _context;
-        
-        
 
         public VenuesContactsRepository(TourManagerContext context) : base(context)
         {
-            _context = context;
-            //this.dbSet = context.Set<TourManagerContext>();
+            _context = context;            
         }
 
         public IQueryable<VenuesToContacts> IncludeMmeL( params Expression<Func<VenuesToContacts, object>>[] includes)

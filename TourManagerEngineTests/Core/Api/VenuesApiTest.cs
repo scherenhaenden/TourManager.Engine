@@ -59,8 +59,7 @@ namespace TourManagerEngineTests.Core.Api
                 ExtranInfo = "behind a bar",
                 PostalZip = "1231312",
                 HouseNameOrNumber = "199A"
-            };
-            
+            };            
             
             VenueModel venueModel = new VenueModel();
             
@@ -93,15 +92,6 @@ namespace TourManagerEngineTests.Core.Api
             venueModel.VenuesToContacts.Add(venuesToContactsModel2);
             
             venuesApi.Add(venueModel);
-            
-            
-            
-            
-            
-         
-
-
-
 
             var result =venuesApi.Find(x => x.Name == venueModel.Name);
             Assert.NotNull(result);

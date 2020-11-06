@@ -57,6 +57,4 @@ namespace TourManagerLogic.Core.Api
             return result.ToDto().ToList();
         }*/
     }
-    
-  
 }
