@@ -188,11 +188,15 @@ namespace TourManagerEngineTests.Core.Api
 
             var result =customersApi.Find(x => x.FirstName == _contactModel.FirstName && x.LastName == _contactModel.LastName);
 
-            foreach (var VARIABLE in result)
+            if (result.Count > 0)
             {
-                customersApi.Delete(VARIABLE.Id);
+                var ids = result.Select(x => x.Id).ToList();
+                foreach (var id in ids)
+                {
+                    customersApi.Delete(id);
+                }
             }
-            
+
             result =customersApi.Find(x => x.FirstName == _contactModel.FirstName && x.LastName == _contactModel.LastName);
            
             Assert.AreEqual(result.Count, 0);
