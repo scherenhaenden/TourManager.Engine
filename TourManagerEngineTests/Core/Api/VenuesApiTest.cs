@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
 using TourManager.Data.Core.Configuration;
@@ -11,6 +12,7 @@ namespace TourManagerEngineTests.Core.Api
     public class VenuesApiTest
     {
         private IUnityOfWork _unityOfWork;
+        private VenueModel _venueModel;
         [SetUp]
         public void Setup()
         {   
@@ -22,9 +24,23 @@ namespace TourManagerEngineTests.Core.Api
             TourManagerContext tourManagerContext = new TourManagerContext(options.Options);
             _unityOfWork = new UnityOfWork(tourManagerContext);
         }
-        
+
+
         [Test]
-        public void TestAdd()
+        public void Test0_0Delete()
+        {
+            var venuesApi = new VenuesApi(_unityOfWork);
+
+            var idsTobeDeleted = venuesApi.GetAllIds();
+
+            foreach (var id in idsTobeDeleted)
+            {
+                venuesApi.Delete(id);
+            }
+        }
+
+        [Test]
+        public void Test1_0Add()
         {
 
             var address = new AddressModel
@@ -59,41 +75,43 @@ namespace TourManagerEngineTests.Core.Api
                 ExtranInfo = "behind a bar",
                 PostalZip = "1231312",
                 HouseNameOrNumber = "199A"
-            };            
+            };          
             
-            VenueModel venueModel = new VenueModel();
+            _venueModel = new VenueModel();
             
-            venueModel.Addresses.Add(addressw);
+            
+            
+            _venueModel.Addresses.Add(addressw);
 
-            venueModel.Name = "LaTaguarita";
+            _venueModel.Name = "LaTaguarita";
             EmailModel emailModel = new EmailModel();
             emailModel.EmailAddress = "venuestest@taguara.net";
             
-            venueModel.Emails.Add(emailModel);
-            venueModel.TelefonNumbers.Add(new TelefonNumberModel() {Number = "+225 Venue" });
+            _venueModel.Emails.Add(emailModel);
+            _venueModel.TelefonNumbers.Add(new TelefonNumberModel() {Number = "+225 Venue" });
            
 
-            venueModel.MaxCapacity = 1500;
-            venueModel.Notes ="many notes";
+            _venueModel.MaxCapacity = 1500;
+            _venueModel.Notes ="many notes";
          
             
 
             var venuesToContactsModel = new VenuesToContactsModel();
             var venuesToContactsModel2 = new VenuesToContactsModel();
 
-            venuesToContactsModel.Venue = venueModel;
+            venuesToContactsModel.Venue = _venueModel;
             venuesToContactsModel.Contact = contactsModel2;
             
-            venuesToContactsModel2.Venue = venueModel;
+            venuesToContactsModel2.Venue = _venueModel;
             venuesToContactsModel2.Contact = contactsModel;
             
             
-            venueModel.VenuesToContacts.Add(venuesToContactsModel2);
-            venueModel.VenuesToContacts.Add(venuesToContactsModel2);
+            _venueModel.VenuesToContacts.Add(venuesToContactsModel2);
+            _venueModel.VenuesToContacts.Add(venuesToContactsModel2);
             
-            venuesApi.Add(venueModel);
+            venuesApi.Add(_venueModel);
 
-            var result =venuesApi.Find(x => x.Name == venueModel.Name);
+            var result =venuesApi.Find(x => x.Name == _venueModel.Name);
             Assert.NotNull(result);
         }
         
@@ -106,6 +124,21 @@ namespace TourManagerEngineTests.Core.Api
             var id = result.Id;
             var selectedOne = venuesApi.SelectBy(result.Id);
             Assert.AreEqual(id, selectedOne.Id);
+        }
+        
+        [Test]
+        public void Test3_1Update()
+        {
+
+            var venuesApi = new VenuesApi(_unityOfWork);
+            _venueModel =venuesApi.Find(X => X.MaxCapacity == _venueModel.MaxCapacity).FirstOrDefault();
+            _venueModel.MaxCapacity = 3000;
+            
+            venuesApi.Update(_venueModel);
+
+            var result =venuesApi.Find(X => X.MaxCapacity == _venueModel.MaxCapacity).FirstOrDefault();
+            
+            Assert.AreEqual(result.MaxCapacity, _venueModel.MaxCapacity);
         }
 
     }
