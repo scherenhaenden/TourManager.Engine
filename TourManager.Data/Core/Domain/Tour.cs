@@ -7,10 +7,8 @@ namespace TourManager.Data.Core.Domain
         public Tour()
         {
             TouringDates = new HashSet<TouringDate>();
-            Bands = new HashSet<Band>();
         }  
         public string NameOfTour { get; set; }
         public virtual ICollection<TouringDate> TouringDates { get; set; }
-        public virtual ICollection<Band> Bands { get; set; }
     }
 }

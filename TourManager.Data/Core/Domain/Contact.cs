@@ -10,6 +10,7 @@ namespace TourManager.Data.Core.Domain
             Addresses = new HashSet<Address>();
             TelefonNumbers = new HashSet<TelefonNumber>();
             Emails = new HashSet<Email>();
+            VenuesToContacts = new HashSet<VenuesToContacts>();
             
         }
         
