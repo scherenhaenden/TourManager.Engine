@@ -6,14 +6,14 @@ using TourManagerLogic.Core.Models;
 
 namespace TourManagerLogic.Core.Mapping.ModelsToDto
 {
-    static class BaseMapper
+    public static class BaseMapper
     {
         public static IEnumerable<object> JoinLists(IEnumerable<BaseModel> dtos, IEnumerable<TEntity> entities)
         {
             var joinedLists= (from m in dtos 
                 join r in entities on m.Id equals r.Id into merged
                 from r in merged.DefaultIfEmpty()
-                select new { m , r });//.Select(x=>x.m.ToEntity(x.r) {m,r});
+                select new { m , r });
 
             return joinedLists;
         }
