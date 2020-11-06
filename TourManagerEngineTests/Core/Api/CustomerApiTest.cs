@@ -33,6 +33,20 @@ namespace TourManagerEngineTests.Core.Api
             _unityOfWork = new UnityOfWork(tourManagerContext);
             //_contacsApi = new ContacsApi(_unityOfWork);            
         }
+        
+        
+        [Test]
+        public void Test0_0DeleteEverything()
+        {
+            var contacsApi = new ContacsApi(_unityOfWork);
+
+            var idsTobeDeleted = contacsApi.GetAllIds();
+
+            foreach (var id in idsTobeDeleted)
+            {
+                contacsApi.Delete(id);
+            }
+        }
 
         [Test]
         public void Test1Add()
@@ -174,11 +188,15 @@ namespace TourManagerEngineTests.Core.Api
 
             var result =customersApi.Find(x => x.FirstName == _contactModel.FirstName && x.LastName == _contactModel.LastName);
 
-            foreach (var VARIABLE in result)
+            if (result.Count > 0)
             {
-                customersApi.Delete(VARIABLE.Id);
+                var ids = result.Select(x => x.Id).ToList();
+                foreach (var id in ids)
+                {
+                    customersApi.Delete(id);
+                }
             }
-            
+
             result =customersApi.Find(x => x.FirstName == _contactModel.FirstName && x.LastName == _contactModel.LastName);
            
             Assert.AreEqual(result.Count, 0);
@@ -193,7 +211,7 @@ namespace TourManagerEngineTests.Core.Api
             var result = customersApi.GetAllPagination();
             
           
-            customersApi.DeleteRange(result);
+            customersApi.RemoveRange(result);
             
             result = customersApi.GetAllPagination();
            

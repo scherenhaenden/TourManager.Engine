@@ -1,3 +1,4 @@
+using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
 using TourManager.Data.Core.Configuration;
@@ -7,7 +8,8 @@ using TourManagerLogic.Core.Models;
 
 namespace TourManagerEngineTests.Core.Api
 {
-    public class VenuesContactsApi
+    public class VenuesContactsApiTest
+
     {
         private IUnityOfWork _unityOfWork;
         
@@ -92,11 +94,9 @@ namespace TourManagerEngineTests.Core.Api
             
             venuesToContactsModel2.Venue = venueModel;
             venuesToContactsModel2.Contact = contactsModel;
-            
-            
-            //venueModel.VenuesToContacts.Add(venuesToContactsModel2);
-            //venueModel.VenuesToContacts.Add(venuesToContactsModel2);
-            
+
+            venuesContactApi.Add(venuesToContactsModel);
+          
             venuesContactApi.Add(venuesToContactsModel2);
 
             Assert.NotNull("result");
@@ -109,14 +109,10 @@ namespace TourManagerEngineTests.Core.Api
 
             var firstName = venuesToContactsModel.Contact.FirstName;
             var venueName = venuesToContactsModel.Venue.Name;
+            var result =venuesContactApi.Find(x => x.Contact.FirstName == firstName &&  x.Venue.Name == venueName);
+            
+            Assert.Greater(result.Count, 0);
 
-
-            var result =venuesContactApi.Find(x => x.Contact.FirstName == firstName);
-            
-            
-            var result2 =venuesContactApi.Find(x => x.Contact.FirstName == firstName && x.Venue.Name == venueName);
-            
-            Assert.NotNull(result);
         }
 
     }

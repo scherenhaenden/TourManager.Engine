@@ -50,11 +50,20 @@ namespace TourManagerEngineTests.Core.Api
             contactsModel2.TelefonNumbers.Add(new TelefonNumberModel() {Number = "+222 Venue" });
             contactsModel2.Emails.Add(new EmailModel() {EmailAddress = "venuewstest@venue.com"});
             contactsModel2.Addresses.Add(address);
-            
-            
-            
+
+            var addressw = new AddressModel
+            {
+                City = "Frankfurt",
+                Country = "Germany",
+                Street = "Westend",
+                ExtranInfo = "behind a bar",
+                PostalZip = "1231312",
+                HouseNameOrNumber = "199A"
+            };            
             
             VenueModel venueModel = new VenueModel();
+            
+            venueModel.Addresses.Add(addressw);
 
             venueModel.Name = "LaTaguarita";
             EmailModel emailModel = new EmailModel();
@@ -62,18 +71,27 @@ namespace TourManagerEngineTests.Core.Api
             
             venueModel.Emails.Add(emailModel);
             venueModel.TelefonNumbers.Add(new TelefonNumberModel() {Number = "+225 Venue" });
-            venueModel.Contact.Add(contactsModel);
+           
 
             venueModel.MaxCapacity = 1500;
             venueModel.Notes ="many notes";
          
+            
+
+            var venuesToContactsModel = new VenuesToContactsModel();
+            var venuesToContactsModel2 = new VenuesToContactsModel();
+
+            venuesToContactsModel.Venue = venueModel;
+            venuesToContactsModel.Contact = contactsModel2;
+            
+            venuesToContactsModel2.Venue = venueModel;
+            venuesToContactsModel2.Contact = contactsModel;
+            
+            
+            venueModel.VenuesToContacts.Add(venuesToContactsModel2);
+            venueModel.VenuesToContacts.Add(venuesToContactsModel2);
+            
             venuesApi.Add(venueModel);
-            
-            
-         
-
-
-
 
             var result =venuesApi.Find(x => x.Name == venueModel.Name);
             Assert.NotNull(result);

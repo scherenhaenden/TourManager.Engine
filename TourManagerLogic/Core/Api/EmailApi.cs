@@ -55,7 +55,13 @@ namespace TourManagerLogic.Core.Api
             _unityOfWork.Complete();
         }
         
-        
+        public void Delete(int id)
+        {
+            var current= _unityOfWork.Emails.GetById(id);
+            _unityOfWork.Emails.Remove(current);
+            _unityOfWork.Complete();
+        }
+
         public void Remove(EmailModel emailModel)
         {
             var current= _unityOfWork.Emails.GetById(emailModel.Id);
@@ -63,5 +69,21 @@ namespace TourManagerLogic.Core.Api
              _unityOfWork.Emails.Remove(current);
             _unityOfWork.Complete();
         }
+        
+        public void Remove(IEnumerable<EmailModel> emailModels)
+        {
+            
+            
+            /*var current= _unityOfWork.Emails.GetById(emailModel.Id);
+            current = emailModel.ToEntity(current);
+            _unityOfWork.Emails.Remove(current);
+            _unityOfWork.Complete();*/
+
+            foreach (var emailModel in emailModels)
+            {
+                Remove(emailModel);
+            }
+        }
+        
     }
 }
