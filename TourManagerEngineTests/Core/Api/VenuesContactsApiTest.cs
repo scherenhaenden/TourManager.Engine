@@ -1,4 +1,3 @@
-using System;
 using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
 using TourManager.Data.Core.Configuration;
@@ -8,9 +7,12 @@ using TourManagerLogic.Core.Models;
 
 namespace TourManagerEngineTests.Core.Api
 {
-    public class VenuesApiTest
+    public class VenuesContactsApi
     {
         private IUnityOfWork _unityOfWork;
+        
+        VenuesToContactsModel venuesToContactsModel = new VenuesToContactsModel();
+        VenuesToContactsModel venuesToContactsModel2 = new VenuesToContactsModel();
         [SetUp]
         public void Setup()
         {   
@@ -24,7 +26,7 @@ namespace TourManagerEngineTests.Core.Api
         }
         
         [Test]
-        public void TestAdd()
+        public void Test1_0Add()
         {
 
             var address = new AddressModel
@@ -36,7 +38,7 @@ namespace TourManagerEngineTests.Core.Api
                 PostalZip = "1231312",
                 HouseNameOrNumber = "199A"
             };
-            var venuesApi = new VenuesApi(_unityOfWork);
+            var venuesContactApi = new VenuesContactApi(_unityOfWork);
             var contactsModel = new ContactModel();
             contactsModel.FirstName = "Eddie";
             contactsModel.LastName = "FrankenStein";
@@ -53,8 +55,21 @@ namespace TourManagerEngineTests.Core.Api
             
             
             
+
+            var addressw = new AddressModel
+            {
+                City = "Frankfurt",
+                Country = "Germany",
+                Street = "Westend",
+                ExtranInfo = "behind a bar",
+                PostalZip = "1231312",
+                HouseNameOrNumber = "199A"
+            };
+            
             
             VenueModel venueModel = new VenueModel();
+            
+            venueModel.Addresses.Add(addressw);
 
             venueModel.Name = "LaTaguarita";
             EmailModel emailModel = new EmailModel();
@@ -62,32 +77,46 @@ namespace TourManagerEngineTests.Core.Api
             
             venueModel.Emails.Add(emailModel);
             venueModel.TelefonNumbers.Add(new TelefonNumberModel() {Number = "+225 Venue" });
-            venueModel.Contact.Add(contactsModel);
+           
 
             venueModel.MaxCapacity = 1500;
             venueModel.Notes ="many notes";
          
-            venuesApi.Add(venueModel);
+            
+
+            venuesToContactsModel = new VenuesToContactsModel();
+            venuesToContactsModel2 = new VenuesToContactsModel();
+
+            venuesToContactsModel.Venue = venueModel;
+            venuesToContactsModel.Contact = contactsModel2;
+            
+            venuesToContactsModel2.Venue = venueModel;
+            venuesToContactsModel2.Contact = contactsModel;
             
             
-         
+            //venueModel.VenuesToContacts.Add(venuesToContactsModel2);
+            //venueModel.VenuesToContacts.Add(venuesToContactsModel2);
+            
+            venuesContactApi.Add(venuesToContactsModel2);
 
-
-
-
-            var result =venuesApi.Find(x => x.Name == venueModel.Name);
-            Assert.NotNull(result);
+            Assert.NotNull("result");
         }
-        
-        [Test]
-        public void TestSelectById()
-        {
 
-            var venuesApi = new VenuesApi(_unityOfWork);
-            var result =venuesApi.GetAllPagination()[0];
-            var id = result.Id;
-            var selectedOne = venuesApi.SelectBy(result.Id);
-            Assert.AreEqual(id, selectedOne.Id);
+        [Test]
+        public void Test2_0Find()
+        {
+            var venuesContactApi = new VenuesContactApi(_unityOfWork);
+
+            var firstName = venuesToContactsModel.Contact.FirstName;
+            var venueName = venuesToContactsModel.Venue.Name;
+
+
+            var result =venuesContactApi.Find(x => x.Contact.FirstName == firstName);
+            
+            
+            var result2 =venuesContactApi.Find(x => x.Contact.FirstName == firstName && x.Venue.Name == venueName);
+            
+            Assert.NotNull(result);
         }
 
     }

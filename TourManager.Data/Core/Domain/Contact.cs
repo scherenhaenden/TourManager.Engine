@@ -23,5 +23,7 @@ namespace TourManager.Data.Core.Domain
         public virtual ICollection<TelefonNumber> TelefonNumbers { get; set; }
         public virtual ICollection<Email> Emails { get; set; }
         public virtual ICollection<Address> Addresses { get; set; }
+        
+        public virtual ICollection<VenuesToContacts> VenuesToContacts { get; set; }
     }
 }
