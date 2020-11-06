@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 
 namespace TourManager.Data.Core.Repository
@@ -23,7 +24,12 @@ namespace TourManager.Data.Core.Repository
         void Update(TEntity entity);
 
         void Remove(TEntity entity);
+        void RemoveRange(IEnumerable<TEntity> entities);
         
-        void RemoveRange(IEnumerable<TEntity> entities);        
+        IQueryable<TEntity> IncludEntities(params Expression<Func<TEntity, object>>[] includes);
+
+        IEnumerable<TResult> Select<TEntity, TResult>(Expression<Func<TEntity, TResult>> selector)
+            where TEntity : Core.Domain.TEntity;
+        
     }
 }
