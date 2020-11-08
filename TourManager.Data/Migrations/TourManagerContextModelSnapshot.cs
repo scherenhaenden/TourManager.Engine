@@ -251,7 +251,7 @@ namespace TourManager.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime>("CurfView")
+                    b.Property<TimeSpan>("CurfView")
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("Inserted")
@@ -260,7 +260,7 @@ namespace TourManager.Data.Migrations
                     b.Property<DateTime>("LastUpdate")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("LoadIn")
+                    b.Property<TimeSpan>("LoadIn")
                         .HasColumnType("TEXT");
 
                     b.Property<int>("MaxCapacity")
