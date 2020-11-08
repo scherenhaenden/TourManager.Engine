@@ -9,7 +9,7 @@ using TourManager.Data.Core.Configuration;
 namespace TourManager.Data.Migrations
 {
     [DbContext(typeof(TourManagerContext))]
-    [Migration("20201106112417_InitialV3")]
+    [Migration("20201108141112_InitialV3")]
     partial class InitialV3
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -253,7 +253,7 @@ namespace TourManager.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime>("CurfView")
+                    b.Property<TimeSpan>("CurfView")
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("Inserted")
@@ -262,7 +262,7 @@ namespace TourManager.Data.Migrations
                     b.Property<DateTime>("LastUpdate")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("LoadIn")
+                    b.Property<TimeSpan>("LoadIn")
                         .HasColumnType("TEXT");
 
                     b.Property<int>("MaxCapacity")

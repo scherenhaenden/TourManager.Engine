@@ -31,8 +31,8 @@ namespace TourManager.Data.Migrations
                     Inserted = table.Column<DateTime>(nullable: false),
                     LastUpdate = table.Column<DateTime>(nullable: false),
                     Name = table.Column<string>(nullable: true),
-                    LoadIn = table.Column<DateTime>(nullable: false),
-                    CurfView = table.Column<DateTime>(nullable: false),
+                    LoadIn = table.Column<TimeSpan>(nullable: false),
+                    CurfView = table.Column<TimeSpan>(nullable: false),
                     MaxCapacity = table.Column<int>(nullable: false),
                     Notes = table.Column<string>(nullable: true)
                 },

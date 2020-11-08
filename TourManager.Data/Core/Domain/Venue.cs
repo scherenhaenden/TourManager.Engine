@@ -21,9 +21,9 @@ namespace TourManager.Data.Core.Domain
 
         public virtual ICollection<VenuesToContacts> VenuesToContacts { get; set; }
         
-        public DateTime LoadIn { get; set; }
+        public TimeSpan LoadIn { get; set; }
         
-        public DateTime CurfView { get; set; }
+        public TimeSpan CurfView { get; set; }
         
         public int MaxCapacity{ get; set; }
         

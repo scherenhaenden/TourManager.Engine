@@ -1,9 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <TargetFramework>netcoreapp3.1</TargetFramework>
-        <PackageVersion>0.3.4</PackageVersion>
+        <PackageVersion>0.3.5</PackageVersion>
         <Title>TourManager.Data</Title>
-        <AssemblyVersion>0.3.4</AssemblyVersion>
+        <AssemblyVersion>0.3.5</AssemblyVersion>
         <Copyright>Eddie Krill</Copyright>
         <PackageProjectUrl>https://github.com/scherenhaenden/TourManager.Engine</PackageProjectUrl>
         <RepositoryUrl>https://github.com/scherenhaenden/TourManager.Engine</RepositoryUrl>
