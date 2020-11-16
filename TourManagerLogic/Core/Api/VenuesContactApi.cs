@@ -42,19 +42,12 @@ namespace TourManagerLogic.Core.Api
             _unityOfWork.Complete();
         }
         
-        
-       /* public List<VenuesToContactsModel> Find(Func<VenuesToContacts, bool> predicate)
+        public void Update(VenuesToContactsModel values)
         {
-
-
-            var result = _unityOfWork.VenuesToContacts.IncludeMmeL(
-                c => c.Contact,
-                l => l.Venue
-            ).ToList().Where(predicate);
-
-
-            //var contacts = _unityOfWork.VenuesToContacts.Find(predicate);
-            return result.ToDto().ToList();
-        }*/
+            var entity =_unityOfWork.VenuesToContacts.GetById(values.Id);
+            entity = values.ToEntity(entity);
+            _unityOfWork.VenuesToContacts.Update(entity);
+            _unityOfWork.Complete();
+        }
     }
 }

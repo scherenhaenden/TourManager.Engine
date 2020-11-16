@@ -13,8 +13,8 @@ namespace TourManagerEngineTests.Core.Api
     {
         private IUnityOfWork _unityOfWork;
         
-        VenuesToContactsModel venuesToContactsModel = new VenuesToContactsModel();
-        VenuesToContactsModel venuesToContactsModel2 = new VenuesToContactsModel();
+        VenuesToContactsModel _venuesToContactsModel = new VenuesToContactsModel();
+        VenuesToContactsModel _venuesToContactsModel2 = new VenuesToContactsModel();
         [SetUp]
         public void Setup()
         {   
@@ -86,18 +86,18 @@ namespace TourManagerEngineTests.Core.Api
          
             
 
-            venuesToContactsModel = new VenuesToContactsModel();
-            venuesToContactsModel2 = new VenuesToContactsModel();
+            _venuesToContactsModel = new VenuesToContactsModel();
+            _venuesToContactsModel2 = new VenuesToContactsModel();
 
-            venuesToContactsModel.Venue = venueModel;
-            venuesToContactsModel.Contact = contactsModel2;
+            _venuesToContactsModel.Venue = venueModel;
+            _venuesToContactsModel.Contact = contactsModel2;
             
-            venuesToContactsModel2.Venue = venueModel;
-            venuesToContactsModel2.Contact = contactsModel;
+            _venuesToContactsModel2.Venue = venueModel;
+            _venuesToContactsModel2.Contact = contactsModel;
 
-            venuesContactApi.Add(venuesToContactsModel);
+            venuesContactApi.Add(_venuesToContactsModel);
           
-            venuesContactApi.Add(venuesToContactsModel2);
+            venuesContactApi.Add(_venuesToContactsModel2);
 
             Assert.NotNull("result");
         }
@@ -107,12 +107,29 @@ namespace TourManagerEngineTests.Core.Api
         {
             var venuesContactApi = new VenuesContactApi(_unityOfWork);
 
-            var firstName = venuesToContactsModel.Contact.FirstName;
-            var venueName = venuesToContactsModel.Venue.Name;
+            var firstName = _venuesToContactsModel.Contact.FirstName;
+            var venueName = _venuesToContactsModel.Venue.Name;
             var result =venuesContactApi.Find(x => x.Contact.FirstName == firstName &&  x.Venue.Name == venueName);
             
             Assert.Greater(result.Count, 0);
 
+        }
+        
+        
+         
+        [Test]
+        public void Test3_1Update()
+        {
+
+            var venuesContactApi = new VenuesContactApi(_unityOfWork);
+            _venuesToContactsModel =venuesContactApi.Find(X => X.Venue.Name == _venuesToContactsModel.Venue.Name).FirstOrDefault();
+            _venuesToContactsModel.Venue.MaxCapacity = 8900;
+            
+            venuesContactApi.Update(_venuesToContactsModel);
+
+            var result =venuesContactApi.Find(X => X.Venue.Name == _venuesToContactsModel.Venue.Name).FirstOrDefault();
+            
+            Assert.AreEqual(result.Venue.MaxCapacity, _venuesToContactsModel.Venue.MaxCapacity);
         }
 
     }
