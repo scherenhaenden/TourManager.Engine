@@ -2,6 +2,7 @@ using TourManager.Data.Core.Configuration;
 using TourManager.Data.Core.Domain;
 using TourManager.Data.Core.Repository;
 using TourManager.Data.Persistence.Repositories;
+// ReSharper disable HeapView.ObjectAllocation.Evident
 
 namespace TourManager.Data.Persistence
 {
@@ -29,12 +30,12 @@ namespace TourManager.Data.Persistence
 
         public void Dispose()
         {
-            if (!this._disposed) {
-                if (_disposed) {
-                    _tourManagerContext.Dispose();
-                }
-                this._disposed = true;
+            if (_disposed)
+            {
+                return;
             }
+            _tourManagerContext.Dispose();
+            _disposed = true;
         }
 
         public IRepository<Contact> Contacts { get; }

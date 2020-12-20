@@ -1,13 +1,5 @@
 using System.Linq;
-using AutoMapper;
-using AutoMapper.EntityFrameworkCore;
-using AutoMapper.EquivalencyExpression;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.Extensions.DependencyInjection;
-
 using NUnit.Framework;
-using TourManager.Data.Core.Configuration;
 using TourManager.Data.Persistence;
 using TourManagerLogic.Core.Api;
 using TourManagerLogic.Core.Models;

@@ -2,7 +2,6 @@ using System;
 using NUnit.Framework;
 using TourManager.Data.Persistence;
 using TourManagerLogic.Core.Api;
-using TourManagerLogic.Core.Mapping.ModelsToDto;
 using TourManagerLogic.Core.Models;
 
 namespace TourManagerEngineTests.Core.Api

@@ -4,9 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
-using Newtonsoft.Json;
 using TourManager.Data.Core.Configuration;
-using TourManager.Data.Core.Domain;
 using TourManager.Data.Core.Repository;
 
 namespace TourManager.Data.Persistence.Repositories
@@ -19,8 +17,8 @@ namespace TourManager.Data.Persistence.Repositories
 
         public Repository(TourManagerContext context)
         {
-            this._context = context;
-            this._dbSet = context.Set<TEntity>();
+            _context = context;
+            _dbSet = context.Set<TEntity>();
         }
 
         public TEntity GetById(int id)
