@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TourManager.Data.Migrations
 {
-    public partial class InitialV3 : Migration
+    public partial class InitialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -203,15 +203,15 @@ namespace TourManager.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TelefonNumbers", x => x.Id);
+                    table.PrimaryKey("PK_TelephoneNumbers", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_TelefonNumbers_Contacts_ContactId",
+                        name: "FK_TelephoneNumbers_Contacts_ContactId",
                         column: x => x.ContactId,
                         principalTable: "Contacts",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_TelefonNumbers_Venues_VenueId",
+                        name: "FK_TelephoneNumbers_Venues_VenueId",
                         column: x => x.VenueId,
                         principalTable: "Venues",
                         principalColumn: "Id",
@@ -287,12 +287,12 @@ namespace TourManager.Data.Migrations
                 column: "VenueId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TelefonNumbers_ContactId",
+                name: "IX_TelephoneNumbers_ContactId",
                 table: "TelephoneNumbers",
                 column: "ContactId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TelefonNumbers_VenueId",
+                name: "IX_TelephoneNumbers_VenueId",
                 table: "TelephoneNumbers",
                 column: "VenueId");
 
