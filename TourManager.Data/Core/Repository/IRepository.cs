@@ -10,6 +10,8 @@ namespace TourManager.Data.Core.Repository
         TEntity GetById(int id);
         
         IEnumerable<TEntity> GetAll();
+
+        IEnumerable<TEntity> Get(int numberOfObjectsPerPage, int pageNumber);
         
         IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate);
 

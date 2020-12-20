@@ -5,7 +5,7 @@ using TourManager.Data.Core.Domain;
 using TourManagerLogic.Core.Models;
 
 namespace TourManagerLogic.Core.Mapping.ModelsToDto
-{
+{   
     //TODO:  try to create a basemapper for all the dtos and entities
     public static class BaseMapper   
     {
@@ -14,8 +14,7 @@ namespace TourManagerLogic.Core.Mapping.ModelsToDto
             var joinedLists= (from m in dtos 
                 join r in entities on m.Id equals r.Id into merged
                 from r in merged.DefaultIfEmpty()
-
-                select new { m , r });
+                select new { m , r });//.Select(x=>x.m.ToEntity(x.r) {m,r});
             return joinedLists;
         }
     }

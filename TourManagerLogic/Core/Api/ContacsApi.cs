@@ -26,6 +26,24 @@ namespace TourManagerLogic.Core.Api
         }
         
         // FIXME: Technical deb 
+        public List<ContactModel> Get(int numberOfObjectsPerPage, int pageNumber)
+        {
+            
+            if (numberOfObjectsPerPage > 50)
+            {
+                numberOfObjectsPerPage = 50;
+            }
+
+            if (pageNumber < 1)
+            {
+                pageNumber = 1;
+            }
+
+            var result = _unityOfWork.Contacts.Get(numberOfObjectsPerPage, pageNumber);
+            return result.ToDto().ToList();
+        }
+        
+        [Obsolete]
         public List<ContactModel> GetAllPagination()
         {
             var result =_unityOfWork.Contacts.GetAll();

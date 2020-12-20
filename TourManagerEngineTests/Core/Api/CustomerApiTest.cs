@@ -208,12 +208,12 @@ namespace TourManagerEngineTests.Core.Api
         {
             var customersApi =new ContacsApi(_unityOfWork);
 
-            var result = customersApi.GetAllPagination();
+            var result = customersApi.Get(1000000, 1);
             
           
             customersApi.RemoveRange(result);
             
-            result = customersApi.GetAllPagination();
+            result = customersApi.Get(50, 1);
            
             
             
