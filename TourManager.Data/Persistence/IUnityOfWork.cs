@@ -7,15 +7,22 @@ namespace TourManager.Data.Persistence
     public interface IUnityOfWork: IDisposable
     {
         IRepository<Contact> Contacts { get; }
+
         IRepository<Address> Address { get; }
+
         IRepository<Band> Bands { get; }
+
         IRepository<TouringDate> TouringDates { get; }
+
         IRepository<Tour> Tours { get; }
+
         IRepository<Venue> Venues { get; }
         
         IRepository<Email> Emails { get; }
         
         IRepository<TelefonNumber> TelefonNumbers { get; }
+        
+        IVenuesContactsRepository VenuesToContacts { get; }
 
         int Complete();
     }
