@@ -4,7 +4,6 @@ using System.Linq;
 using System.Linq.Expressions;
 using TourManager.Data.Core.Domain;
 using TourManager.Data.Persistence;
-using TourManager.Data.Persistence.Repositories;
 using TourManagerLogic.Core.Mapping.ModelsToDto;
 using TourManagerLogic.Core.Models;
 

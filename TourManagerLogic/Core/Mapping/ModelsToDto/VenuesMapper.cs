@@ -14,7 +14,7 @@ namespace TourManagerLogic.Core.Mapping.ModelsToDto
                 entity.Name = dto.Name;
                 entity.Addresses = dto.Addresses.ToEntity(entity.Addresses).ToList();
                 entity.Emails = dto.Emails.ToEntity(entity.Emails).ToList();
-                entity.TelefonNumbers = dto.TelefonNumbers.ToEntity(entity.TelefonNumbers).ToList();
+                entity.TelephoneNumbers = dto.TelephoneNumbers.ToEntity(entity.TelephoneNumbers).ToList();
                 //entity.VenuesToContacts = dto.VenuesToContacts.ToEntity(entity.VenuesToContacts).ToList();
                 entity.LoadIn = dto.LoadIn;
                 entity.CurfView = dto.CurfView;
@@ -37,7 +37,7 @@ namespace TourManagerLogic.Core.Mapping.ModelsToDto
                     Name = dto.Name,
                     Addresses = dto.Addresses.ToEntity().ToList(),
                     Emails = dto.Emails.ToEntity().ToList(),
-                    TelefonNumbers = dto.TelefonNumbers.ToEntity().ToList(),
+                    TelephoneNumbers = dto.TelephoneNumbers.ToEntity().ToList(),
                     //VenuesToContacts = dto.VenuesToContacts.ToEntity().ToList(),
                     LoadIn = dto.LoadIn,
                     CurfView = dto.CurfView,
@@ -59,7 +59,7 @@ namespace TourManagerLogic.Core.Mapping.ModelsToDto
                     Name = entity.Name,
                     Addresses = entity.Addresses.ToDto().ToList(),
                     Emails = entity.Emails.ToDto().ToList(),
-                    TelefonNumbers = entity.TelefonNumbers.ToDto().ToList(),
+                    TelephoneNumbers = entity.TelephoneNumbers.ToDto().ToList(),
                     //VenuesToContacts = entity.VenuesToContacts.ToDto().ToList(),
                     LoadIn = entity.LoadIn,
                     CurfView = entity.CurfView,

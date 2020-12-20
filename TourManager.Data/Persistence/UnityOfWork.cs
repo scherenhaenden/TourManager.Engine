@@ -2,6 +2,7 @@ using TourManager.Data.Core.Configuration;
 using TourManager.Data.Core.Domain;
 using TourManager.Data.Core.Repository;
 using TourManager.Data.Persistence.Repositories;
+// ReSharper disable HeapView.ObjectAllocation.Evident
 
 namespace TourManager.Data.Persistence
 {
@@ -22,19 +23,19 @@ namespace TourManager.Data.Persistence
             Venues = new Repository<Venue>(_tourManagerContext);
             
             Emails = new Repository<Email>(_tourManagerContext);
-            TelefonNumbers = new Repository<TelefonNumber>(_tourManagerContext);
+            TelephoneNumbers = new Repository<TelephoneNumber>(_tourManagerContext);
             
             VenuesToContacts = new VenuesContactsRepository(_tourManagerContext);
         }
 
         public void Dispose()
         {
-            if (!this._disposed) {
-                if (_disposed) {
-                    _tourManagerContext.Dispose();
-                }
-                this._disposed = true;
+            if (_disposed)
+            {
+                return;
             }
+            _tourManagerContext.Dispose();
+            _disposed = true;
         }
 
         public IRepository<Contact> Contacts { get; }
@@ -51,7 +52,7 @@ namespace TourManager.Data.Persistence
 
         public IRepository<Email> Emails { get; }
 
-        public IRepository<TelefonNumber> TelefonNumbers { get; }
+        public IRepository<TelephoneNumber> TelephoneNumbers { get; }
         
         public IVenuesContactsRepository VenuesToContacts { get; }
 

@@ -11,7 +11,7 @@ namespace TourManagerLogic.Core.Models
         
         public  int? VenueId { get; set; }
 
-        public virtual ICollection<TelefonNumberModel> TelefonNumbers { get; set; } = new Collection<TelefonNumberModel>();
+        public virtual ICollection<TelephoneNumberModel> TelephoneNumbers { get; set; } = new Collection<TelephoneNumberModel>();
         
         public virtual ICollection<EmailModel> Emails { get; set; } = new Collection<EmailModel>();
         

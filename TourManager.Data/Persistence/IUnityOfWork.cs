@@ -20,7 +20,7 @@ namespace TourManager.Data.Persistence
         
         IRepository<Email> Emails { get; }
         
-        IRepository<TelefonNumber> TelefonNumbers { get; }
+        IRepository<TelephoneNumber> TelephoneNumbers { get; }
         
         IVenuesContactsRepository VenuesToContacts { get; }
 

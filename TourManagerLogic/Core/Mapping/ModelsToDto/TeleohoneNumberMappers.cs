@@ -5,9 +5,9 @@ using TourManagerLogic.Core.Models;
 
 namespace TourManagerLogic.Core.Mapping.ModelsToDto
 {
-    public static class TelefonNumberMappers
+    public static class TeleohoneNumberMappers
     {
-         public static TelefonNumber ToEntity(this TelefonNumberModel dto, TelefonNumber entity)
+         public static TelephoneNumber ToEntity(this TelephoneNumberModel dto, TelephoneNumber entity)
         {
             if (dto != null)
             {
@@ -20,11 +20,11 @@ namespace TourManagerLogic.Core.Mapping.ModelsToDto
 
             return null;
         }
-        public static TelefonNumber ToEntity(this TelefonNumberModel dto)
+        public static TelephoneNumber ToEntity(this TelephoneNumberModel dto)
         {
             if (dto != null)
             {
-                return new TelefonNumber
+                return new TelephoneNumber
                 {
                     Id =  dto.Id,
                     Number =  dto.Number,
@@ -36,11 +36,11 @@ namespace TourManagerLogic.Core.Mapping.ModelsToDto
             return null;
         }
         
-        public static TelefonNumberModel ToDto(this TelefonNumber entity)
+        public static TelephoneNumberModel ToDto(this TelephoneNumber entity)
         {
             if (entity != null)
             {
-                return new TelefonNumberModel
+                return new TelephoneNumberModel
                 {
                     Id =  entity.Id,
                     Number =  entity.Number,
@@ -52,7 +52,7 @@ namespace TourManagerLogic.Core.Mapping.ModelsToDto
             return null;
         }
         
-        public static IEnumerable<TelefonNumber> ToEntity(this IEnumerable<TelefonNumberModel> dtos, IEnumerable<TelefonNumber> entities)
+        public static IEnumerable<TelephoneNumber> ToEntity(this IEnumerable<TelephoneNumberModel> dtos, IEnumerable<TelephoneNumber> entities)
         {
             var joinedLists= (from m in dtos 
                 join r in entities on m.Id equals r.Id into merged
@@ -66,17 +66,17 @@ namespace TourManagerLogic.Core.Mapping.ModelsToDto
             return rEmails;
         }
 
-        public static IEnumerable<TelefonNumber> ToEntity(this IEnumerable<TelefonNumberModel> dto)
+        public static IEnumerable<TelephoneNumber> ToEntity(this IEnumerable<TelephoneNumberModel> dto)
         {
             return dto.Select(x => x.ToEntity());
         }
         
-        public static IEnumerable<TelefonNumber> ToEntity(this List<TelefonNumberModel> dto)
+        public static IEnumerable<TelephoneNumber> ToEntity(this List<TelephoneNumberModel> dto)
         {
             return dto.Select(x => x.ToEntity());
         }
         
-        public static IEnumerable<TelefonNumberModel> ToDto(this IEnumerable<TelefonNumber> entity)
+        public static IEnumerable<TelephoneNumberModel> ToDto(this IEnumerable<TelephoneNumber> entity)
         {
             return entity.Select(x => x.ToDto());
         }

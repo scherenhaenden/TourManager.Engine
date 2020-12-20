@@ -13,7 +13,7 @@ namespace TourManagerLogic.Core.Mapping.ModelsToDto
             {
                 entity.FirstName =  dto.FirstName;
                 entity.LastName =  dto.LastName;
-                entity.TelefonNumbers =  dto.TelefonNumbers.ToEntity(entity.TelefonNumbers).ToList();
+                entity.TelephoneNumbers =  dto.TelephoneNumbers.ToEntity(entity.TelephoneNumbers).ToList();
                 entity.Emails =  dto.Emails.ToEntity(entity.Emails ).ToList();
                 entity.Addresses =  dto.Addresses.ToEntity(entity.Addresses).ToList();
                 entity.VenueId =  dto.VenueId;
@@ -32,7 +32,7 @@ namespace TourManagerLogic.Core.Mapping.ModelsToDto
                 {
                     FirstName =  dto.FirstName,
                     LastName =  dto.LastName,
-                    TelefonNumbers =  dto.TelefonNumbers.ToEntity().ToList(),
+                    TelephoneNumbers =  dto.TelephoneNumbers.ToEntity().ToList(),
                     Emails =  dto.Emails.ToEntity().ToList(),
                     Addresses =  dto.Addresses.ToEntity().ToList(),
                     VenueId =  dto.VenueId,
@@ -51,7 +51,7 @@ namespace TourManagerLogic.Core.Mapping.ModelsToDto
                     Id = entity.Id,
                     FirstName =  entity.FirstName,
                     LastName =  entity.LastName,
-                    TelefonNumbers =  entity.TelefonNumbers.ToDto().ToList(),
+                    TelephoneNumbers =  entity.TelephoneNumbers.ToDto().ToList(),
                     Emails =  entity.Emails.ToDto().ToList(),
                     Addresses =  entity.Addresses.ToDto().ToList(),
                     VenueId =  entity.VenueId,
