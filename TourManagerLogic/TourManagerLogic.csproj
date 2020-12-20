@@ -9,13 +9,12 @@
         <PackageLicenseUrl>https://github.com/scherenhaenden/TourManager.Engine</PackageLicenseUrl>
         <RepositoryUrl>https://github.com/scherenhaenden/TourManager.Engine</RepositoryUrl>
         <RepositoryType>Git</RepositoryType>
-        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>        
         <AssemblyVersion>0.3.9</AssemblyVersion>
     </PropertyGroup>
     <ItemGroup>
       <ProjectReference Include="..\TourManager.Data\TourManager.Data.csproj" />
     </ItemGroup>
-
     <ItemGroup>
       <PackageReference Include="AutoMapper" Version="10.1.1" />
       <PackageReference Include="AutoMapper.Collection" Version="7.0.0" />
