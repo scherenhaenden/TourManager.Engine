@@ -2,6 +2,7 @@
 
     <PropertyGroup>
         <TargetFramework>netcoreapp3.1</TargetFramework>
+        Features/AddDefaultPaginationPerGet
         <PackageVersion>0.3.9</PackageVersion>
         <Description>Tour Manager Logic</Description>
         <Copyright>Eddie Krill</Copyright>
@@ -10,6 +11,7 @@
         <RepositoryUrl>https://github.com/scherenhaenden/TourManager.Engine</RepositoryUrl>
         <RepositoryType>Git</RepositoryType>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        Features/AddDefaultPaginationPerGet
         <AssemblyVersion>0.3.9</AssemblyVersion>
     </PropertyGroup>
     <ItemGroup>
