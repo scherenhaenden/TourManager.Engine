@@ -4,9 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
-using Newtonsoft.Json;
 using TourManager.Data.Core.Configuration;
-using TourManager.Data.Core.Domain;
 using TourManager.Data.Core.Repository;
 
 namespace TourManager.Data.Persistence.Repositories
@@ -19,8 +17,8 @@ namespace TourManager.Data.Persistence.Repositories
 
         public Repository(TourManagerContext context)
         {
-            this._context = context;
-            this._dbSet = context.Set<TEntity>();
+            _context = context;
+            _dbSet = context.Set<TEntity>();
         }
 
         public TEntity GetById(int id)
@@ -31,6 +29,28 @@ namespace TourManager.Data.Persistence.Repositories
         public IEnumerable<TEntity> GetAll()
         {
             return _context.Set<TEntity>().ToList();
+        }
+
+        public IEnumerable<TEntity> Get(int numberOfObjectsPerPage = 10, int pageNumber = 1)
+        {
+            if (pageNumber < 1)
+            {
+                pageNumber = 1;
+            }
+            
+            if (numberOfObjectsPerPage < 1)
+            {
+                numberOfObjectsPerPage = 10;
+            }
+
+            var all2 = _context.Set<TEntity>();
+            
+            
+            var all3 
+                = 
+                all2.Skip(numberOfObjectsPerPage * (pageNumber-1))
+                    .Take(numberOfObjectsPerPage).ToList();
+            return all3;
         }
 
         public IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate)

@@ -9,8 +9,8 @@ using TourManager.Data.Core.Configuration;
 namespace TourManager.Data.Migrations
 {
     [DbContext(typeof(TourManagerContext))]
-    [Migration("20201108141112_InitialV3")]
-    partial class InitialV3
+    [Migration("20201220122235_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -162,7 +162,7 @@ namespace TourManager.Data.Migrations
                     b.ToTable("Emails");
                 });
 
-            modelBuilder.Entity("TourManager.Data.Core.Domain.TelefonNumber", b =>
+            modelBuilder.Entity("TourManager.Data.Core.Domain.TelephoneNumber", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -189,7 +189,7 @@ namespace TourManager.Data.Migrations
 
                     b.HasIndex("VenueId");
 
-                    b.ToTable("TelefonNumbers");
+                    b.ToTable("TelephoneNumbers");
                 });
 
             modelBuilder.Entity("TourManager.Data.Core.Domain.Tour", b =>
@@ -350,14 +350,14 @@ namespace TourManager.Data.Migrations
                         .HasForeignKey("VenueId");
                 });
 
-            modelBuilder.Entity("TourManager.Data.Core.Domain.TelefonNumber", b =>
+            modelBuilder.Entity("TourManager.Data.Core.Domain.TelephoneNumber", b =>
                 {
                     b.HasOne("TourManager.Data.Core.Domain.Contact", null)
-                        .WithMany("TelefonNumbers")
+                        .WithMany("TelephoneNumbers")
                         .HasForeignKey("ContactId");
 
                     b.HasOne("TourManager.Data.Core.Domain.Venue", null)
-                        .WithMany("TelefonNumbers")
+                        .WithMany("TelephoneNumbers")
                         .HasForeignKey("VenueId");
                 });
 

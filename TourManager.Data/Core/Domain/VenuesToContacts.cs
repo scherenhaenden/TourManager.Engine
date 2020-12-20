@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 namespace TourManager.Data.Core.Domain
 {
     public class VenuesToContacts: TEntity

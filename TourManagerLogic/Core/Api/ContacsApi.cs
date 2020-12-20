@@ -2,8 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using AutoMapper;
-using AutoMapper.EquivalencyExpression;
 using TourManager.Data.Core.Domain;
 using TourManager.Data.Persistence;
 using TourManagerLogic.Core.Mapping.ModelsToDto;
@@ -26,6 +24,24 @@ namespace TourManagerLogic.Core.Api
         }
         
         // FIXME: Technical deb 
+        public List<ContactModel> Get(int numberOfObjectsPerPage, int pageNumber)
+        {
+            
+            if (numberOfObjectsPerPage > 50)
+            {
+                numberOfObjectsPerPage = 50;
+            }
+
+            if (pageNumber < 1)
+            {
+                pageNumber = 1;
+            }
+
+            var result = _unityOfWork.Contacts.Get(numberOfObjectsPerPage, pageNumber);
+            return result.ToDto().ToList();
+        }
+        
+        [Obsolete]
         public List<ContactModel> GetAllPagination()
         {
             var result =_unityOfWork.Contacts.GetAll();
@@ -49,7 +65,7 @@ namespace TourManagerLogic.Core.Api
 
             var addressesIds=entity.Addresses.Select(x => x.Id).ToList();
             var emailsIds=entity.Emails.Select(x => x.Id).ToList();
-            var telefonumbersIds=entity.TelefonNumbers.Select(x => x.Id).ToList();
+            var telephoneNumbersIds=entity.TelephoneNumbers.Select(x => x.Id).ToList();
             var venuesToContacsIds =entity.VenuesToContacts.Select(x => x.Id).ToList();
             
             foreach (var idsd in addressesIds)
@@ -74,11 +90,11 @@ namespace TourManagerLogic.Core.Api
                 }
             }
 
-            foreach (var idsds in telefonumbersIds)
+            foreach (var idsds in telephoneNumbersIds)
             {
                 try
                 {
-                    new TelefonNumberApi(_unityOfWork).Delete(idsds);
+                    new TelephoneNumberApi(_unityOfWork).Delete(idsds);
                 }
                 catch (Exception)
                 {
@@ -143,7 +159,7 @@ namespace TourManagerLogic.Core.Api
             return contact.ToDto();
         }
         
-        public ContactModel SelectByLoadTelefonNumbers(int id)
+        public ContactModel SelectByLoadTelephoneNumbers(int id)
         {
             var contact = (Contact)_unityOfWork.Contacts.GetById(id);
             if (contact == null)
@@ -151,9 +167,9 @@ namespace TourManagerLogic.Core.Api
                 return null;
             }
             
-            var result =  _unityOfWork.TelefonNumbers.GetAll()?.Where(x => x.ContactId == contact.Id);
+            var result =  _unityOfWork.TelephoneNumbers.GetAll()?.Where(x => x.ContactId == contact.Id);
 
-            contact.TelefonNumbers = result.Where(x => x.ContactId == contact.Id).ToList();
+            contact.TelephoneNumbers = result.Where(x => x.ContactId == contact.Id).ToList();
             return contact.ToDto();
         }
         

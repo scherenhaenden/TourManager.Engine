@@ -8,7 +8,7 @@ namespace TourManager.Data.Core.Domain
         public Venue()
         {
             Addresses = new HashSet<Address>();
-            TelefonNumbers = new HashSet<TelefonNumber>();
+            TelephoneNumbers = new HashSet<TelephoneNumber>();
             Emails = new HashSet<Email>();
             VenuesToContacts = new HashSet<VenuesToContacts>();
         }
@@ -17,7 +17,7 @@ namespace TourManager.Data.Core.Domain
         public virtual ICollection<Address> Addresses { get; set; }
         
         public virtual ICollection<Email> Emails { get; set; }
-        public virtual ICollection<TelefonNumber> TelefonNumbers { get; set; }
+        public virtual ICollection<TelephoneNumber> TelephoneNumbers { get; set; }
 
         public virtual ICollection<VenuesToContacts> VenuesToContacts { get; set; }
         

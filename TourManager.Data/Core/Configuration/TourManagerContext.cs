@@ -14,7 +14,7 @@ namespace TourManager.Data.Core.Configuration
         
         public DbSet<Email> Emails { get; set; }
         
-        public DbSet<TelefonNumber> TelefonNumbers { get; set; }
+        public DbSet<TelephoneNumber> TelephoneNumbers { get; set; }
 
         public DbSet<Tour> Tours { get; set; }
         

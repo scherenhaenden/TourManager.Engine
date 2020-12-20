@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using TourManager.Data.Core.Domain;
 
 namespace TourManagerLogic.Core.Models
 {

@@ -1,13 +1,5 @@
 using System.Linq;
-using AutoMapper;
-using AutoMapper.EntityFrameworkCore;
-using AutoMapper.EquivalencyExpression;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.Extensions.DependencyInjection;
-
 using NUnit.Framework;
-using TourManager.Data.Core.Configuration;
 using TourManager.Data.Persistence;
 using TourManagerLogic.Core.Api;
 using TourManagerLogic.Core.Models;
@@ -60,7 +52,7 @@ namespace TourManagerEngineTests.Core.Api
             var _contactModel = new ContactModel();
             _contactModel.FirstName = "Eddie test";
             _contactModel.LastName = "FrankenStein";
-            _contactModel.TelefonNumbers.Add(new TelefonNumberModel() {Number = "+555 Contact" });
+            _contactModel.TelephoneNumbers.Add(new TelephoneNumberModel() {Number = "+555 Contact" });
             _contactModel.Emails.Add(new EmailModel() {EmailAddress = "contacttest@gmail.com"});
             _contactModel.Addresses.Add(address);
 
@@ -82,7 +74,7 @@ namespace TourManagerEngineTests.Core.Api
             var _contactModel2 = new ContactModel();
             _contactModel2.FirstName = "non Eddie test";
             _contactModel2.LastName = "FrankenStein";
-            _contactModel2.TelefonNumbers.Add(new TelefonNumberModel() {Number = "+555 Contact" });
+            _contactModel2.TelephoneNumbers.Add(new TelephoneNumberModel() {Number = "+555 Contact" });
             _contactModel2.Emails.Add(new EmailModel() {EmailAddress = "contacttest@gmail.com"});
             _contactModel2.Addresses.Add(address2);
             
