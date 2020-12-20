@@ -5,9 +5,7 @@ using TourManager.Data.Core.Domain;
 using TourManagerLogic.Core.Models;
 
 namespace TourManagerLogic.Core.Mapping.ModelsToDto
-{
-    static class BaseMapper
-
+{   
     //TODO:  try to create a basemapper for all the dtos and entities
     public static class BaseMapper   
     {
