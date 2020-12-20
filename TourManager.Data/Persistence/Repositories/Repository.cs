@@ -33,6 +33,28 @@ namespace TourManager.Data.Persistence.Repositories
             return _context.Set<TEntity>().ToList();
         }
 
+        public IEnumerable<TEntity> Get(int numberOfObjectsPerPage = 10, int pageNumber = 1)
+        {
+            if (pageNumber < 1)
+            {
+                pageNumber = 1;
+            }
+            
+            if (numberOfObjectsPerPage < 1)
+            {
+                numberOfObjectsPerPage = 10;
+            }
+
+            var all2 = _context.Set<TEntity>();
+            
+            
+            var all3 
+                = 
+                all2.Skip(numberOfObjectsPerPage * (pageNumber-1))
+                    .Take(numberOfObjectsPerPage).ToList();
+            return all3;
+        }
+
         public IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate)
         {
             return _context.Set<TEntity>().Where(predicate).ToList();
