@@ -55,14 +55,14 @@ namespace TourManagerEngineTests.Core.Api
             var contactsModel = new ContactModel();
             contactsModel.FirstName = "Eddie";
             contactsModel.LastName = "FrankenStein";
-            contactsModel.TelefonNumbers.Add(new TelefonNumberModel() {Number = "+555 Venue" });
+            contactsModel.TelephoneNumbers.Add(new TelephoneNumberModel() {Number = "+555 Venue" });
             contactsModel.Emails.Add(new EmailModel() {EmailAddress = "venuewstest@gmail.com"});
             contactsModel.Addresses.Add(address);
             
             var contactsModel2 = new ContactModel();
             contactsModel2.FirstName = "pofetti";
             contactsModel2.LastName = "ninuu";
-            contactsModel2.TelefonNumbers.Add(new TelefonNumberModel() {Number = "+222 Venue" });
+            contactsModel2.TelephoneNumbers.Add(new TelephoneNumberModel() {Number = "+222 Venue" });
             contactsModel2.Emails.Add(new EmailModel() {EmailAddress = "venuewstest@venue.com"});
             contactsModel2.Addresses.Add(address);
 
@@ -87,7 +87,7 @@ namespace TourManagerEngineTests.Core.Api
             emailModel.EmailAddress = "venuestest@taguara.net";
             
             _venueModel.Emails.Add(emailModel);
-            _venueModel.TelefonNumbers.Add(new TelefonNumberModel() {Number = "+225 Venue" });
+            _venueModel.TelephoneNumbers.Add(new TelephoneNumberModel() {Number = "+225 Venue" });
            
 
             _venueModel.MaxCapacity = 1500;

@@ -23,7 +23,7 @@ namespace TourManager.Data.Persistence
             Venues = new Repository<Venue>(_tourManagerContext);
             
             Emails = new Repository<Email>(_tourManagerContext);
-            TelefonNumbers = new Repository<TelefonNumber>(_tourManagerContext);
+            TelephoneNumbers = new Repository<TelephoneNumber>(_tourManagerContext);
             
             VenuesToContacts = new VenuesContactsRepository(_tourManagerContext);
         }
@@ -52,7 +52,7 @@ namespace TourManager.Data.Persistence
 
         public IRepository<Email> Emails { get; }
 
-        public IRepository<TelefonNumber> TelefonNumbers { get; }
+        public IRepository<TelephoneNumber> TelephoneNumbers { get; }
         
         public IVenuesContactsRepository VenuesToContacts { get; }
 

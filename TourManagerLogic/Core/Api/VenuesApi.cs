@@ -45,7 +45,7 @@ namespace TourManagerLogic.Core.Api
 
             var addressesIds=entity.Addresses.Select(x => x.Id).ToList();
             var emailsIds=entity.Emails.Select(x => x.Id).ToList();
-            var telefonumbersIds=entity.TelefonNumbers.Select(x => x.Id).ToList();
+            var telephoneNumbersIds=entity.TelephoneNumbers.Select(x => x.Id).ToList();
             var venuesToContacsIds =entity.VenuesToContacts.Select(x => x.Id).ToList();
             
             foreach (var idsd in addressesIds)
@@ -70,11 +70,11 @@ namespace TourManagerLogic.Core.Api
                 }
             }
 
-            foreach (var idsds in telefonumbersIds)
+            foreach (var idsds in telephoneNumbersIds)
             {
                 try
                 {
-                    new TelefonNumberApi(_unityOfWork).Delete(idsds);
+                    new TelephoneNumberApi(_unityOfWork).Delete(idsds);
                 }
                 catch (Exception)
                 {

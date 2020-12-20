@@ -190,7 +190,7 @@ namespace TourManager.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TelefonNumbers",
+                name: "TelephoneNumbers",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -288,12 +288,12 @@ namespace TourManager.Data.Migrations
 
             migrationBuilder.CreateIndex(
                 name: "IX_TelefonNumbers_ContactId",
-                table: "TelefonNumbers",
+                table: "TelephoneNumbers",
                 column: "ContactId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TelefonNumbers_VenueId",
-                table: "TelefonNumbers",
+                table: "TelephoneNumbers",
                 column: "VenueId");
 
             migrationBuilder.CreateIndex(
@@ -352,7 +352,7 @@ namespace TourManager.Data.Migrations
                 name: "Emails");
 
             migrationBuilder.DropTable(
-                name: "TelefonNumbers");
+                name: "TelephoneNumbers");
 
             migrationBuilder.DropTable(
                 name: "TouringDates");

@@ -60,7 +60,7 @@ namespace TourManagerEngineTests.Core.Api
             _contactModel = new ContactModel();
             _contactModel.FirstName = "Eddie test";
             _contactModel.LastName = "FrankenStein";
-            _contactModel.TelefonNumbers.Add(new TelefonNumberModel() {Number = "+555 Contact" });
+            _contactModel.TelephoneNumbers.Add(new TelephoneNumberModel() {Number = "+555 Contact" });
             _contactModel.Emails.Add(new EmailModel() {EmailAddress = "contacttest@gmail.com"});
             _contactModel.Addresses.Add(address);
             customersApi.Add(_contactModel);
@@ -91,14 +91,14 @@ namespace TourManagerEngineTests.Core.Api
         }
         
         [Test]
-        public void Test2_2SelectByIdLoadTelefonNumbers()
+        public void Test2_2SelectByIdLoadTelephoneNumbers()
         {
             var customersApi =new ContacsApi(_unityOfWork);
 
             var result = customersApi.Find(x => x.FirstName == "Eddie test").FirstOrDefault();
             var id = result.Id;
-            var selectedOne = customersApi.SelectByLoadTelefonNumbers(result.Id);
-            Assert.AreEqual(_contactModel.TelefonNumbers.ToList()[0].Number, selectedOne.TelefonNumbers.ToList()[0].Number);
+            var selectedOne = customersApi.SelectByLoadTelephoneNumbers(result.Id);
+            Assert.AreEqual(_contactModel.TelephoneNumbers.ToList()[0].Number, selectedOne.TelephoneNumbers.ToList()[0].Number);
         }
         
         [Test]
@@ -155,10 +155,10 @@ namespace TourManagerEngineTests.Core.Api
             };
 
             var email = new EmailModel() {EmailAddress = "contact-secondmail@gmail.com"};
-            var telefon = new TelefonNumberModel() {Number = "+555 Contact + 2"};
+            var telephoneNumberModel = new TelephoneNumberModel() {Number = "+555 Contact + 2"};
             
             _contactModel.Emails.Add(email);
-            _contactModel.TelefonNumbers.Add(telefon);
+            _contactModel.TelephoneNumbers.Add(telephoneNumberModel);
             _contactModel.Addresses.Add(address);
             customersApi.Update(_contactModel);
             
@@ -167,11 +167,11 @@ namespace TourManagerEngineTests.Core.Api
 
 
             var resultEmail =updatedResult.Emails.FirstOrDefault(x => x.EmailAddress == email.EmailAddress);
-            var resultTelefon =updatedResult.TelefonNumbers.FirstOrDefault(x => x.Number == telefon.Number);
+            var resultTelephone =updatedResult.TelephoneNumbers.FirstOrDefault(x => x.Number == telephoneNumberModel.Number);
             var resultAddress =updatedResult.Addresses.FirstOrDefault(x => x.City == address.City);
 
             Assert.NotNull(resultEmail);
-            Assert.NotNull(resultTelefon);
+            Assert.NotNull(resultTelephone);
             Assert.NotNull(resultAddress);
         }
         
