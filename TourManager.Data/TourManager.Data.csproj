@@ -1,9 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <TargetFramework>netcoreapp3.1</TargetFramework>
-        <PackageVersion>0.3.6</PackageVersion>
+        Features/AddDefaultPaginationPerGet
+        <PackageVersion>0.3.9</PackageVersion>
         <Title>TourManager.Data</Title>
-        <AssemblyVersion>0.3.6</AssemblyVersion>
+        <AssemblyVersion>0.3.9</AssemblyVersion>
         <Copyright>Eddie Krill</Copyright>
         <PackageProjectUrl>https://github.com/scherenhaenden/TourManager.Engine</PackageProjectUrl>
         <RepositoryUrl>https://github.com/scherenhaenden/TourManager.Engine</RepositoryUrl>
